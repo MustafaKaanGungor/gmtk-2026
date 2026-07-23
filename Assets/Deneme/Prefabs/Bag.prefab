@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5492528946338379887}
   - component: {fileID: 3022171999568335461}
+  - component: {fileID: 3095337127846251858}
   m_Layer: 0
   m_Name: BagVisual
   m_TagString: Untagged
@@ -92,6 +93,27 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3095337127846251858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143767963963098260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8d0ae726b40bd01b60ea3be8602aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteArtSlot
+  artConfig: {fileID: 11400000, guid: e5b52d620d3bc9a6e8748339512811fd, type: 2}
+  artType: 4
+  preserveAspectRatio: 1
+  placeholderOnlyObjects:
+  - {fileID: 7158068883035882108}
+  placeholderSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  placeholderColor: {r: 0.4245283, g: 0.22011098, b: 0.0740922, a: 1}
+  placeholderLocalScale: {x: 0.8, y: 0.6, z: 1}
+  placeholderVisualSize: {x: 0.8, y: 0.6}
 --- !u!1 &7158068883035882108
 GameObject:
   m_ObjectHideFlags: 0
