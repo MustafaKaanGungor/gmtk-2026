@@ -1,8 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
 
 [DisallowMultipleComponent]
 public class ThrowGameController : MonoBehaviour
@@ -10,91 +8,65 @@ public class ThrowGameController : MonoBehaviour
     private enum GameState
     {
         Preparing,
-        Aiming,
-        SelectingPower,
-        BagFlying,
-        WaitingForNextThrow,
+        Playing,
         GameOver
     }
 
     [Header("Gameplay References")]
-    [SerializeField] private AimController aimController;
-    [SerializeField] private PowerController powerController;
-    [SerializeField] private BagThrower bagThrower;
-    [SerializeField] private BagSpawner bagSpawner;
-    [SerializeField] private RocketTarget rocketTarget;
+    [SerializeField]
+    private PlayerGroundBagThrower playerBagThrower;
 
-    [Header("UI Reference")]
-    [SerializeField] private GameUIController gameUIController;
+    [SerializeField]
+    private GroundBagSpawner groundBagSpawner;
 
-    [Header("Game Flow")]
-    [Min(0f)]
-    [SerializeField] private float nextThrowDelay = 1.25f;
+    [SerializeField]
+    private RocketTarget rocketTarget;
 
-    [Header("Miss Detection")]
-    [Tooltip(
-        "Bu süreden önce çantanın durmuş olup olmadığı kontrol edilmez."
-    )]
-    [Min(0f)]
-    [SerializeField] private float minimumFlightTime = 1f;
+    [Header("Score And UI")]
+    [SerializeField]
+    private ScoreController scoreController;
 
-    [Tooltip(
-        "Çanta bu hızın altında kaldığında durmuş sayılmaya yaklaşır."
-    )]
-    [Min(0f)]
-    [SerializeField] private float stoppedSpeedThreshold = 0.3f;
+    [SerializeField]
+    private GameUIController gameUIController;
 
-    [Tooltip(
-        "Çanta düşük hızda bu kadar süre kalırsa atış kaçmış sayılır."
-    )]
-    [Min(0f)]
-    [SerializeField] private float stoppedDurationRequired = 0.6f;
-
-    [Tooltip(
-        "Atış bu süreden uzun sürerse otomatik olarak kaçmış sayılır."
-    )]
-    [Min(1f)]
-    [SerializeField] private float maximumFlightTime = 8f;
-
-    [Header("World Bounds")]
-    [SerializeField] private float minimumWorldX = -12f;
-    [SerializeField] private float maximumWorldX = 12f;
-    [SerializeField] private float minimumWorldY = -7f;
-    [SerializeField] private float maximumWorldY = 10f;
-
-    [Header("Failed Bag")]
-    [Tooltip(
-        "Kaçan çantanın yok edilmeden önce sahnede kalacağı süre."
-    )]
-    [Min(0f)]
-    [SerializeField] private float failedBagLifetime = 2f;
+    private readonly HashSet<GroundBagPickup>
+    activeThrownBags =
+    new HashSet<GroundBagPickup>();
 
     private GameState currentState;
-
-    private BagProjectile activeThrownBag;
-
-    private float flightTimer;
-    private float stoppedTimer;
-    private float nextThrowTimer;
-
-    private bool throwResultHandled;
+    private int totalBagCount;
+    private int deliveredBagCount;
 
     private void OnEnable()
     {
+        if (playerBagThrower != null)
+        {
+            playerBagThrower.BagThrown +=
+            HandleBagThrown;
+        }
+
         if (rocketTarget != null)
         {
             rocketTarget.BagDelivered +=
-                HandleBagDelivered;
+            HandleBagDelivered;
         }
     }
 
     private void OnDisable()
     {
+        if (playerBagThrower != null)
+        {
+            playerBagThrower.BagThrown -=
+            HandleBagThrown;
+        }
+
         if (rocketTarget != null)
         {
             rocketTarget.BagDelivered -=
-                HandleBagDelivered;
+            HandleBagDelivered;
         }
+
+        StopTrackingAllBags();
     }
 
     private void Start()
@@ -105,74 +77,58 @@ public class ThrowGameController : MonoBehaviour
             return;
         }
 
-        StartGame();
+        StartCoroutine(InitializeGame());
     }
 
-    private void Update()
+    private IEnumerator InitializeGame()
     {
-        switch (currentState)
-        {
-            case GameState.Aiming:
-            case GameState.SelectingPower:
-                CheckSelectionInput();
-                break;
+        currentState = GameState.Preparing;
 
-            case GameState.BagFlying:
-                UpdateFlyingBag();
-                break;
+        // GroundBagSpawner da Start içinde çalıştığı için bir kare
+        // bekleyerek oluşturulan bavulların sayısını alıyoruz.
+        yield return null;
 
-            case GameState.WaitingForNextThrow:
-                UpdateNextThrowTimer();
-                break;
-        }
+        totalBagCount =
+        groundBagSpawner.SpawnedBagCount;
+
+        deliveredBagCount = 0;
+
+        scoreController.ResetScore(
+            totalBagCount
+        );
+
+        currentState = GameState.Playing;
+
+        gameUIController.SetInstruction(
+            "Bavula yaklaş. E veya sol tık ile al, " +
+            "tekrar basarak rokete fırlat."
+        );
     }
 
     private bool ReferencesAreValid()
     {
-        bool referencesValid = true;
+        bool isValid = true;
 
-        if (aimController == null)
+        if (playerBagThrower == null)
         {
             Debug.LogError(
                 "ThrowGameController: " +
-                "AimController atanmamış.",
+                "PlayerGroundBagThrower atanmamış.",
                 this
             );
 
-            referencesValid = false;
+            isValid = false;
         }
 
-        if (powerController == null)
+        if (groundBagSpawner == null)
         {
             Debug.LogError(
                 "ThrowGameController: " +
-                "PowerController atanmamış.",
+                "GroundBagSpawner atanmamış.",
                 this
             );
 
-            referencesValid = false;
-        }
-
-        if (bagThrower == null)
-        {
-            Debug.LogError(
-                "ThrowGameController: " +
-                "BagThrower atanmamış.",
-                this
-            );
-
-            referencesValid = false;
-        }
-
-        if (bagSpawner == null)
-        {
-            Debug.LogError(
-                "ThrowGameController: " +
-                "BagSpawner atanmamış.",
-                this
-            );
-
-            referencesValid = false;
+            isValid = false;
         }
 
         if (rocketTarget == null)
@@ -183,7 +139,18 @@ public class ThrowGameController : MonoBehaviour
                 this
             );
 
-            referencesValid = false;
+            isValid = false;
+        }
+
+        if (scoreController == null)
+        {
+            Debug.LogError(
+                "ThrowGameController: " +
+                "ScoreController atanmamış.",
+                this
+            );
+
+            isValid = false;
         }
 
         if (gameUIController == null)
@@ -194,382 +161,149 @@ public class ThrowGameController : MonoBehaviour
                 this
             );
 
-            referencesValid = false;
+            isValid = false;
         }
 
-        return referencesValid;
+        return isValid;
     }
 
-    public void StartGame()
+    private void HandleBagThrown(
+        GroundBagPickup thrownBag)
     {
-        activeThrownBag = null;
-        throwResultHandled = false;
-
-        bagSpawner.ResetSpawner();
-
-        gameUIController.ResetGame(
-            bagSpawner.RemainingBagCount
-        );
-
-        PrepareNextBag();
-    }
-
-    private void PrepareNextBag()
-    {
-        currentState = GameState.Preparing;
-
-        if (!bagSpawner.HasRemainingBags)
-        {
-            FinishGame();
-            return;
-        }
-
-        aimController.gameObject.SetActive(true);
-        aimController.ResetAim();
-        aimController.StartAiming();
-
-        powerController.gameObject.SetActive(true);
-        powerController.ResetPower();
-        powerController.HidePowerBar();
-
-        bool bagPrepared =
-            bagSpawner.TryPrepareNextBag(
-                out BagProjectile preparedBag
-            );
-
-        if (!bagPrepared || preparedBag == null)
-        {
-            Debug.LogError(
-                "ThrowGameController: " +
-                "Yeni çanta hazırlanamadı.",
-                this
-            );
-
-            FinishGame();
-            return;
-        }
-
-        activeThrownBag = null;
-        throwResultHandled = false;
-
-        flightTimer = 0f;
-        stoppedTimer = 0f;
-        nextThrowTimer = 0f;
-
-        currentState = GameState.Aiming;
-
-        gameUIController.SetInstruction(
-            "Atış açısını seç ve SPACE, " +
-            "Enter veya sol tık ile durdur."
-        );
-
-        gameUIController.SetRemainingBagCount(
-            bagSpawner.RemainingBagCount
-        );
-    }
-
-    private void CheckSelectionInput()
-    {
-        if (!ConfirmPressed())
-        {
-            return;
-        }
-
-        if (currentState == GameState.Aiming)
-        {
-            LockAimAndStartPower();
-        }
-        else if (
-            currentState ==
-            GameState.SelectingPower)
-        {
-            LockPowerAndThrow();
-        }
-    }
-
-    private void LockAimAndStartPower()
-    {
-        aimController.StopAiming();
-
-        powerController.ShowPowerBar();
-        powerController.ResetPower();
-        powerController.StartSelectingPower();
-
-        currentState =
-            GameState.SelectingPower;
-
-        gameUIController.SetInstruction(
-            "Atış gücünü seç ve SPACE, " +
-            "Enter veya sol tık ile durdur."
-        );
-    }
-
-    private void LockPowerAndThrow()
-    {
-        float selectedPower =
-            powerController.LockPower();
-
-        Vector2 selectedDirection =
-            aimController.AimDirection;
-
-        aimController.HideArrow();
-        powerController.HidePowerBar();
-
-        activeThrownBag =
-            bagThrower.ThrowBag(
-                selectedDirection,
-                selectedPower
-            );
-
-        if (activeThrownBag == null)
-        {
-            Debug.LogError(
-                "ThrowGameController: " +
-                "Çanta fırlatılamadı.",
-                this
-            );
-
-            bagSpawner.CancelPreparedBag();
-            PrepareNextBag();
-            return;
-        }
-
-        bagSpawner.MarkPreparedBagAsUsed();
-
-        gameUIController.SetRemainingBagCount(
-            bagSpawner.RemainingBagCount
-        );
-
-        flightTimer = 0f;
-        stoppedTimer = 0f;
-        throwResultHandled = false;
-
-        currentState = GameState.BagFlying;
-
-        gameUIController.SetInstruction(
-            "Çanta uçuyor..."
-        );
-    }
-
-    private void UpdateFlyingBag()
-    {
-        if (throwResultHandled)
-        {
-            return;
-        }
-
-        flightTimer += Time.deltaTime;
-
-        if (activeThrownBag == null)
-        {
-            HandleMissedThrow();
-            return;
-        }
-
-        if (BagIsOutsideWorld())
-        {
-            HandleMissedThrow();
-            return;
-        }
-
-        if (flightTimer >= maximumFlightTime)
-        {
-            HandleMissedThrow();
-            return;
-        }
-
-        if (flightTimer < minimumFlightTime)
-        {
-            return;
-        }
-
-        CheckIfBagStopped();
-    }
-
-    private void CheckIfBagStopped()
-    {
-        Rigidbody2D bagBody =
-            activeThrownBag.Body;
-
-        if (bagBody == null)
-        {
-            return;
-        }
-
-        if (!bagBody.simulated)
-        {
-            return;
-        }
-
-        bool isSleeping =
-            bagBody.IsSleeping();
-
-        bool isMovingSlowly =
-            bagBody.linearVelocity.sqrMagnitude <=
-            stoppedSpeedThreshold *
-            stoppedSpeedThreshold;
-
-        if (isSleeping || isMovingSlowly)
-        {
-            stoppedTimer += Time.deltaTime;
-        }
-        else
-        {
-            stoppedTimer = 0f;
-        }
-
         if (
-            stoppedTimer >=
-            stoppedDurationRequired)
+            currentState != GameState.Playing ||
+            thrownBag == null)
         {
-            HandleMissedThrow();
+            return;
         }
-    }
 
-    private bool BagIsOutsideWorld()
-    {
-        Vector2 bagPosition =
-            activeThrownBag.transform.position;
+        if (!activeThrownBags.Add(thrownBag))
+        {
+            return;
+        }
 
-        return
-            bagPosition.x < minimumWorldX ||
-            bagPosition.x > maximumWorldX ||
-            bagPosition.y < minimumWorldY ||
-            bagPosition.y > maximumWorldY;
+        thrownBag.ReturnedToGround +=
+        HandleBagReturnedToGround;
+
+        gameUIController.SetInstruction(
+            "Bavul uçuyor..."
+        );
     }
 
     private void HandleBagDelivered(
-        BagProjectile deliveredBag)
+        BagProjectile deliveredProjectile)
     {
         if (
-            currentState !=
-            GameState.BagFlying)
+            currentState != GameState.Playing ||
+            deliveredProjectile == null)
         {
             return;
         }
 
-        if (throwResultHandled)
-        {
-            return;
-        }
+        GroundBagPickup deliveredBag =
+        deliveredProjectile.GetComponent<
+        GroundBagPickup>();
 
         if (
-            deliveredBag !=
-            activeThrownBag)
+            deliveredBag == null ||
+            !activeThrownBags.Contains(
+                deliveredBag))
         {
             return;
         }
 
-        HandleSuccessfulThrow();
-    }
+        StopTrackingBag(deliveredBag);
 
-    private void HandleSuccessfulThrow()
-    {
-        throwResultHandled = true;
+        deliveredBagCount++;
 
-        gameUIController.RegisterSuccessfulBag(
-            bagSpawner.RemainingBagCount
+        int earnedScore =
+        scoreController.RegisterSuccess();
+
+        scoreController.SetRemainingBagCount(
+            totalBagCount -
+            deliveredBagCount
         );
 
-        StartWaitingForNextThrow();
-    }
-
-    private void HandleMissedThrow()
-    {
-        if (throwResultHandled)
-        {
-            return;
-        }
-
-        throwResultHandled = true;
-
-        gameUIController.RegisterMissedBag(
-            bagSpawner.RemainingBagCount
+        gameUIController.SetInstruction(
+            "Başarılı! +" +
+            earnedScore +
+            " puan."
         );
 
-        if (activeThrownBag != null)
+        if (deliveredBagCount >= totalBagCount)
         {
-            Destroy(
-                activeThrownBag.gameObject,
-                failedBagLifetime
-            );
+            FinishGame();
         }
-
-        StartWaitingForNextThrow();
     }
 
-    private void StartWaitingForNextThrow()
+    private void HandleBagReturnedToGround(
+        GroundBagPickup returnedBag)
     {
-        currentState =
-            GameState.WaitingForNextThrow;
-
-        nextThrowTimer =
-            nextThrowDelay;
-    }
-
-    private void UpdateNextThrowTimer()
-    {
-        nextThrowTimer -= Time.deltaTime;
-
-        if (nextThrowTimer > 0f)
+        if (
+            currentState != GameState.Playing ||
+            returnedBag == null ||
+            !activeThrownBags.Contains(
+                returnedBag))
         {
             return;
         }
 
-        PrepareNextBag();
+        StopTrackingBag(returnedBag);
+
+        scoreController.RegisterMiss();
+
+        gameUIController.SetInstruction(
+            "Atış kaçtı. Bavulu tekrar alabilirsin."
+        );
+    }
+
+    private void StopTrackingBag(
+        GroundBagPickup bag)
+    {
+        if (bag == null)
+        {
+            return;
+        }
+
+        bag.ReturnedToGround -=
+        HandleBagReturnedToGround;
+
+        activeThrownBags.Remove(bag);
+    }
+
+    private void StopTrackingAllBags()
+    {
+        foreach (
+            GroundBagPickup bag
+            in activeThrownBags)
+        {
+            if (bag != null)
+            {
+                bag.ReturnedToGround -=
+                HandleBagReturnedToGround;
+            }
+        }
+
+        activeThrownBags.Clear();
     }
 
     private void FinishGame()
     {
         currentState = GameState.GameOver;
 
-        aimController.HideArrow();
-        powerController.HidePowerBar();
-        bagThrower.RemoveHeldBag();
+        StopTrackingAllBags();
 
-        gameUIController.ShowGameOver(
-            bagSpawner.TotalBagCount
+        gameUIController.SetInstruction(
+            "Oyun bitti! Toplam skor: " +
+            scoreController.TotalScore +
+            ". En yüksek seri: " +
+            scoreController.HighestStreak
         );
 
         Debug.Log(
             "Oyun bitti. Skor: " +
-            gameUIController.CurrentScore +
-            ", başarılı: " +
-            gameUIController.SuccessfulBagCount +
-            ", kaçan: " +
-            gameUIController.MissedBagCount,
+            scoreController.TotalScore,
             this
         );
-    }
-
-    private bool ConfirmPressed()
-    {
-#if ENABLE_INPUT_SYSTEM
-        bool keyboardPressed =
-            Keyboard.current != null &&
-            (
-                Keyboard.current
-                    .spaceKey
-                    .wasPressedThisFrame ||
-                Keyboard.current
-                    .enterKey
-                    .wasPressedThisFrame
-            );
-
-        bool mousePressed =
-            Mouse.current != null &&
-            Mouse.current
-                .leftButton
-                .wasPressedThisFrame;
-
-        return
-            keyboardPressed ||
-            mousePressed;
-#else
-        return
-            Input.GetKeyDown(KeyCode.Space) ||
-            Input.GetKeyDown(KeyCode.Return) ||
-            Input.GetMouseButtonDown(0);
-#endif
     }
 }

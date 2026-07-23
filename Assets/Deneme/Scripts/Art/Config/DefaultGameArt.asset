@@ -15,7 +15,7 @@ MonoBehaviour:
   backgroundSprite: {fileID: 0}
   groundSprite: {fileID: 0}
   playerSprite: {fileID: 0}
-  rocketSprite: {fileID: -8395601168212197403, guid: 29d14a99880a5be00b192b2ab61ac4cd, type: 3}
+  rocketSprite: {fileID: 21300000, guid: 7779b9ad6c0fd90df9d777c263384e6c, type: 3}
   bagSprite: {fileID: 0}
   aimArrowBodySprite: {fileID: 0}
   aimArrowHeadSprite: {fileID: 0}
