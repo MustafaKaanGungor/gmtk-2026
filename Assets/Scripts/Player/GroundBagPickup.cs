@@ -7,6 +7,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class GroundBagPickup : MonoBehaviour
 {
+    [Header("Bag Identity")]
+    [SerializeField] private BagType bagType = BagType.Brown;
+
+    public BagType Type => bagType;
+
     [Header("Ground Physics")]
     [Min(0f)]
     [SerializeField] private float groundGravityScale = 1.5f;
