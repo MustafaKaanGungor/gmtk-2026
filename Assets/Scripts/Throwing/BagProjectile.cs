@@ -14,6 +14,9 @@ public class BagProjectile : MonoBehaviour
 
     public bool IsThrown { get; private set; }
 
+    /// <summary>Bavulun en son firlatildigi (elden birakildigi) konum.</summary>
+    public Vector3 ThrowOrigin { get; private set; }
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -60,9 +63,22 @@ public class BagProjectile : MonoBehaviour
 
         ClearMotion();
 
+        // Firlatma anindaki konumu kaydet; yanlis kapiya girerse buraya doner.
+        ThrowOrigin = transform.position;
+
         IsThrown = true;
 
         return body;
+    }
+
+    /// <summary>
+    /// Bavulu en son firlatildigi konuma isinlar ve hareketini durdurur.
+    /// </summary>
+    public void ReturnToThrowOrigin()
+    {
+        ClearMotion();
+
+        transform.position = ThrowOrigin;
     }
 
     /// <summary>

@@ -50,6 +50,11 @@ public class PressurePumpController : MonoBehaviour
     [SerializeField] private Color inZoneColor = Color.green;
     [SerializeField] private Color outOfZoneColor = Color.red;
 
+    [Header("Sound Events")]
+    [Tooltip("Pompa calisirken donen loop sesinin adi. Bos ise calmaz. " +
+        "SoundManager'da bu girisin Loop ayari acik olmali.")]
+    [SerializeField] private string pumpLoopSound = "Pressure_Pump_Loop";
+
     [Header("Input")]
     [Tooltip("Eski Input Manager kullanildiginda pompalama tusu.")]
     [SerializeField] private KeyCode pumpKey = KeyCode.Space;
@@ -183,12 +188,22 @@ public class PressurePumpController : MonoBehaviour
 
     public void StartPumping()
     {
+        // Zaten calisiyorsa loop'u tekrar baslatmiyoruz.
+        if (IsRunning)
+        {
+            return;
+        }
+
         IsRunning = true;
+
+        PlayPumpLoop();
     }
 
     public void StopPumping()
     {
         IsRunning = false;
+
+        StopPumpLoop();
     }
 
     public void ResetPressure()
@@ -197,9 +212,51 @@ public class PressurePumpController : MonoBehaviour
         TimeInGreenZone = 0f;
         IsRunning = false;
 
+        StopPumpLoop();
+
         if (pumpIndicator != null)
         {
             UpdateVisual();
+        }
+    }
+
+    private void OnDisable()
+    {
+        // Obje kapatilirsa loop sesi sonsuza kadar calmasin.
+        StopPumpLoop();
+    }
+
+    private void PlayPumpLoop()
+    {
+        if (string.IsNullOrEmpty(pumpLoopSound))
+        {
+            return;
+        }
+
+        if (SoundManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "PressurePumpController: SoundManager sahnede yok, " +
+                "pompa sesi calinamiyor.",
+                this
+            );
+
+            return;
+        }
+
+        SoundManager.Instance.Play(pumpLoopSound);
+    }
+
+    private void StopPumpLoop()
+    {
+        if (string.IsNullOrEmpty(pumpLoopSound))
+        {
+            return;
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Stop(pumpLoopSound);
         }
     }
 

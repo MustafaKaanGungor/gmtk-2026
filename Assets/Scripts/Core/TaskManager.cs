@@ -13,6 +13,15 @@ public class TaskManager : MonoBehaviour
     [SerializeField]
     private List<GameTask> tasks = new List<GameTask>();
 
+    [Header("Sound Events")]
+    [Tooltip("Bir gorev tamamlaninca calinacak sesin adi. Bos ise calmaz.")]
+    [SerializeField]
+    private string taskCompletedSound = "Task_Completed";
+
+    [Tooltip("Butun gorevler bitince calinacak sesin adi. Bos ise calmaz.")]
+    [SerializeField]
+    private string allTasksCompletedSound = "All_Tasks_Completed";
+
     /// <summary>Bir gorev tamamlandiginda tetiklenir.</summary>
     public event Action<GameTask> TaskCompleted;
 
@@ -78,14 +87,31 @@ public class TaskManager : MonoBehaviour
 
         task.MarkCompleted();
 
+        PlaySound(taskCompletedSound);
+
         TaskCompleted?.Invoke(task);
 
         if (AreAllTasksCompleted)
         {
+            PlaySound(allTasksCompletedSound);
+
             AllTasksCompleted?.Invoke();
         }
 
         return true;
+    }
+
+    private void PlaySound(string soundName)
+    {
+        if (string.IsNullOrEmpty(soundName))
+        {
+            return;
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(soundName);
+        }
     }
 
     public GameTask GetTask(string taskId)

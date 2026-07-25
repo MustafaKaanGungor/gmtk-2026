@@ -31,6 +31,10 @@ public class PressurePumpMinigame : MonoBehaviour
     [Tooltip("Basarinca pompa mekanigini durdur.")]
     [SerializeField] private bool stopPumpOnSuccess = true;
 
+    [Header("Sound Events")]
+    [Tooltip("Minigame basariyla bitince calinacak sesin adi. Bos ise calmaz.")]
+    [SerializeField] private string successSound = "Pressure_Success";
+
     /// <summary>Minigame basariyla tamamlandiginda tetiklenir.</summary>
     public event Action Completed;
 
@@ -91,6 +95,12 @@ public class PressurePumpMinigame : MonoBehaviour
         if (taskManager != null)
         {
             taskManager.CompleteTask(taskId);
+        }
+
+        if (!string.IsNullOrEmpty(successSound) &&
+            SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(successSound);
         }
 
         Completed?.Invoke();
