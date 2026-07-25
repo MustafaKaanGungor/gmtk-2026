@@ -624,7 +624,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dacde922bdefbba4fafe178cd069f730, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimedDoorGate
+  m_EditorClassIdentifier: Assembly-CSharp::ColorZone
   door: {fileID: 1990595302}
   slideDoor: 1
   closedLocalPosition: {x: 0, y: 1, z: 0}
@@ -3536,7 +3536,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dacde922bdefbba4fafe178cd069f730, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimedDoorGate
+  m_EditorClassIdentifier: Assembly-CSharp::ColorZone
   door: {fileID: 634034742}
   slideDoor: 1
   closedLocalPosition: {x: 0, y: 1, z: 0}
@@ -3645,7 +3645,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dacde922bdefbba4fafe178cd069f730, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimedDoorGate
+  m_EditorClassIdentifier: Assembly-CSharp::ColorZone
   door: {fileID: 1932232112}
   slideDoor: 1
   closedLocalPosition: {x: 0.39, y: 1, z: 0}

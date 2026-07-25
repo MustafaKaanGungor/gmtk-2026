@@ -249,6 +249,8 @@ public class ThrowGameController : MonoBehaviour
             " puan."
         );
 
+        GameSignals.Raise(GameSignals.BagDelivered);
+
         TryCompleteBagTask();
 
         if (deliveredBagCount >= totalBagCount)
@@ -309,6 +311,8 @@ public class ThrowGameController : MonoBehaviour
 
         scoreController.RegisterMiss();
 
+        GameSignals.Raise(GameSignals.BagMissed);
+
         gameUIController.SetInstruction(
             "Atış kaçtı. Bavulu tekrar alabilirsin."
         );
@@ -349,6 +353,8 @@ public class ThrowGameController : MonoBehaviour
         currentState = GameState.GameOver;
 
         StopTrackingAllBags();
+
+        GameSignals.Raise(GameSignals.GameOver);
 
         gameUIController.SetInstruction(
             "Oyun bitti! Toplam skor: " +

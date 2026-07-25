@@ -82,6 +82,16 @@ public class BagProjectile : MonoBehaviour
     }
 
     /// <summary>
+    /// Bavulun mevcut hiz vektorunu tersine cevirir (geldigi yone geri firlatir).
+    /// multiplier ile hizi olceklendirebilirsin (1 = ayni hizla geri).
+    /// </summary>
+    public void ReverseVelocity(float multiplier = 1f)
+    {
+        body.linearVelocity = -body.linearVelocity * multiplier;
+        body.angularVelocity = -body.angularVelocity;
+    }
+
+    /// <summary>
     /// Çantanın bütün hareketini durdurur.
     /// </summary>
     public void StopMotion()

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// Birden fazla renkli kapiyi (TimedDoorGate) izler. Her kapi kendi renginde
+/// Birden fazla renkli kapiyi (ColorZone) izler. Her kapi kendi renginde
 /// gereken sayida bavul alinca "dolu" olur; butun kapilar dolunca TaskManager'da
 /// ilgili gorevi tamamlar.
 /// </summary>
@@ -11,7 +11,7 @@ public class BagGateTaskController : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("Bu goreve dahil renkli kapilar.")]
-    [SerializeField] private TimedDoorGate[] gates;
+    [SerializeField] private ColorZone[] gates;
 
     [Tooltip("Opsiyonel. Atanirsa butun kapilar dolunca gorev tamamlanir.")]
     [SerializeField] private TaskManager taskManager;
@@ -19,13 +19,6 @@ public class BagGateTaskController : MonoBehaviour
     [Header("Task")]
     [Tooltip("Butun kapilar dolunca tamamlanacak gorevin kimligi.")]
     [SerializeField] private string taskId = "bag_gates";
-
-    [Header("Sound Events")]
-    [Tooltip("Bir kapi dolunca calinacak ses. Bos ise calmaz.")]
-    [SerializeField] private string gateSatisfiedSound = "Gate_Completed";
-
-    [Tooltip("Butun kapilar dolunca calinacak ses. Bos ise calmaz.")]
-    [SerializeField] private string allGatesSound = "";
 
     /// <summary>Butun kapilar dolunca (bir kez) tetiklenir.</summary>
     public event Action AllGatesSatisfied;
@@ -64,9 +57,9 @@ public class BagGateTaskController : MonoBehaviour
         }
     }
 
-    private void HandleGateSatisfied(TimedDoorGate gate)
+    private void HandleGateSatisfied(ColorZone gate)
     {
-        PlaySound(gateSatisfiedSound);
+        GameSignals.Raise(GameSignals.GateSatisfied);
 
         if (completed)
         {
@@ -85,7 +78,7 @@ public class BagGateTaskController : MonoBehaviour
             taskManager.CompleteTask(taskId);
         }
 
-        PlaySound(allGatesSound);
+        GameSignals.Raise(GameSignals.AllGatesSatisfied);
 
         AllGatesSatisfied?.Invoke();
 
@@ -111,18 +104,5 @@ public class BagGateTaskController : MonoBehaviour
         }
 
         return true;
-    }
-
-    private void PlaySound(string soundName)
-    {
-        if (string.IsNullOrEmpty(soundName))
-        {
-            return;
-        }
-
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.Play(soundName);
-        }
     }
 }
