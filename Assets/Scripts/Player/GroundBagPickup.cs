@@ -46,12 +46,14 @@ public class GroundBagPickup : MonoBehaviour
 
     public bool IsAvailable { get; private set; }
     public bool IsHeld { get; private set; }
+    public bool IsDelivered { get; private set; }
     public BagProjectile Projectile => projectile;
 
     /// <summary>
     /// Fırlatılan bavul yerde durup yeniden alınabilir olduğunda çalışır.
     /// </summary>
     public event Action<GroundBagPickup> ReturnedToGround;
+    public event Action<GroundBagPickup> Delivered;
 
     private void Awake()
     {
@@ -89,6 +91,7 @@ public class GroundBagPickup : MonoBehaviour
 
         IsAvailable = true;
         IsHeld = false;
+        IsDelivered = false;
 
         waitingToBecomeAvailable = false;
         flightTimer = 0f;
@@ -122,6 +125,32 @@ public class GroundBagPickup : MonoBehaviour
         projectile.HoldAt(holdPoint);
 
         return true;
+    }
+
+    /// <summary>
+    /// Bavulu teslim edilmiş duruma getirir ve varsa taşıyan
+    /// oyuncunun çantayı bırakabilmesi için haber verir.
+    /// </summary>
+    public void MarkAsDelivered()
+    {
+        if (IsDelivered)
+        {
+            return;
+        }
+
+        SetHolderCollisionIgnored(false);
+
+        IsAvailable = false;
+        IsHeld = false;
+        IsDelivered = true;
+
+        waitingToBecomeAvailable = false;
+        flightTimer = 0f;
+        stoppedTimer = 0f;
+
+        holderColliders = null;
+
+        Delivered?.Invoke(this);
     }
 
     public bool TryThrow(

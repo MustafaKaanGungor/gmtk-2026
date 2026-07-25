@@ -1,0 +1,309 @@
+fileFormatVersion: 2
+guid: 423c7207bab7b35c796443e3e09ca4cc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4598071921875045971
+    second: RocketFlying_0
+  - first:
+      213: 7263377886708498455
+    second: RocketFlying_1
+  - first:
+      213: 6873855079305002135
+    second: RocketFlying_2
+  - first:
+      213: -3184298705810681659
+    second: RocketFlying_3
+  - first:
+      213: -8135469666798924809
+    second: RocketFlying_4
+  - first:
+      213: -1001776812684482702
+    second: RocketFlying_5
+  - first:
+      213: 6941454465202262786
+    second: RocketFlying_6
+  - first:
+      213: 2405736544131849244
+    second: RocketFlying_7
+  - first:
+      213: -1729299248099471527
+    second: RocketFlying_8
+  - first:
+      213: -4114032194864677457
+    second: RocketFlying_9
+  - first:
+      213: -3014700875475873200
+    second: RocketFlying_10
+  - first:
+      213: -7075979655328282004
+    second: RocketFlying_11
+  - first:
+      213: 4243329258697242417
+    second: RocketFlying_12
+  - first:
+      213: -4265227602741252094
+    second: RocketFlying_13
+  - first:
+      213: 6220153274314872182
+    second: RocketFlying_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RocketFlying_0
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 73
+        width: 282
+        height: 746
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35e4f032d02afcf30800000000000000
+      internalID: 4598071921875045971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocketFlying_1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 152
+        width: 282
+        height: 674
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71000b674b3bcc460800000000000000
+      internalID: 7263377886708498455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocketFlying_3
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 156
+        width: 337
+        height: 680
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 33, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c01b6db2391fc3d0800000000000000
+      internalID: -3184298705810681659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocketFlying_6
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 590
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2031ee60f00055060800000000000000
+      internalID: 6941454465202262786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocketFlying_8
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 607
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95f4eaefe7b4008e0800000000000000
+      internalID: -1729299248099471527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RocketFlying_12
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 514
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137bba98a7553ea30800000000000000
+      internalID: 4243329258697242417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: faf6ccce5772160128b6c4731123dbb1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RocketFlying_0: 4598071921875045971
+      RocketFlying_1: 7263377886708498455
+      RocketFlying_10: -3014700875475873200
+      RocketFlying_11: -7075979655328282004
+      RocketFlying_12: 4243329258697242417
+      RocketFlying_13: -4265227602741252094
+      RocketFlying_14: 6220153274314872182
+      RocketFlying_2: 6873855079305002135
+      RocketFlying_3: -3184298705810681659
+      RocketFlying_4: -8135469666798924809
+      RocketFlying_5: -1001776812684482702
+      RocketFlying_6: 6941454465202262786
+      RocketFlying_7: 2405736544131849244
+      RocketFlying_8: -1729299248099471527
+      RocketFlying_9: -4114032194864677457
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

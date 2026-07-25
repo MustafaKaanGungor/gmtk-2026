@@ -47,6 +47,10 @@ public class ThrowGameController : MonoBehaviour
     activeThrownBags =
     new HashSet<GroundBagPickup>();
 
+    private readonly HashSet<GroundBagPickup>
+    deliveredBags =
+    new HashSet<GroundBagPickup>();
+
     private GameState currentState;
     private int totalBagCount;
     private int deliveredBagCount;
@@ -106,6 +110,7 @@ public class ThrowGameController : MonoBehaviour
         groundBagSpawner.SpawnedBagCount;
 
         deliveredBagCount = 0;
+        deliveredBags.Clear();
 
         scoreController.ResetScore(
             totalBagCount
@@ -114,8 +119,8 @@ public class ThrowGameController : MonoBehaviour
         currentState = GameState.Playing;
 
         gameUIController.SetInstruction(
-            "Bavula yaklaş. E veya sol tık ile al, " +
-            "tekrar basarak rokete fırlat."
+            "Bavula yaklaş. E veya sol tık ile al; " +
+            "rokete taşı veya tekrar basıp fırlat."
         );
     }
 
@@ -220,8 +225,8 @@ public class ThrowGameController : MonoBehaviour
 
         if (
             deliveredBag == null ||
-            !activeThrownBags.Contains(
-                deliveredBag))
+            !IsSpawnedBag(deliveredBag) ||
+            !deliveredBags.Add(deliveredBag))
         {
             return;
         }
@@ -250,6 +255,22 @@ public class ThrowGameController : MonoBehaviour
         {
             FinishGame();
         }
+    }
+
+    private bool IsSpawnedBag(GroundBagPickup bag)
+    {
+        IReadOnlyList<GroundBagPickup> spawnedBags =
+            groundBagSpawner.SpawnedBags;
+
+        for (int index = 0; index < spawnedBags.Count; index++)
+        {
+            if (spawnedBags[index] == bag)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void TryCompleteBagTask()

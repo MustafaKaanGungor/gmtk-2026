@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -18,6 +19,8 @@ public class RocketTarget : MonoBehaviour
     [SerializeField] private bool printSuccessMessage = true;
 
     private Collider2D targetCollider;
+    private readonly HashSet<BagProjectile> acceptedBags =
+        new HashSet<BagProjectile>();
 
     /// <summary>
     /// Bir çanta başarıyla hedefe ulaştığında çalışır.
@@ -69,18 +72,38 @@ public class RocketTarget : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        TryAcceptBag(other);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        TryAcceptBag(other);
+    }
+
+    private void TryAcceptBag(Collider2D other)
+    {
         BagProjectile incomingBag = FindBagProjectile(other);
 
-        if (incomingBag == null)
+        if (
+            incomingBag == null ||
+            acceptedBags.Contains(incomingBag))
         {
             return;
         }
 
-        if (!incomingBag.IsThrown)
+        GroundBagPickup pickup =
+            incomingBag.GetComponent<GroundBagPickup>();
+
+        bool canBeDelivered =
+            incomingBag.IsThrown ||
+            (pickup != null && pickup.IsHeld);
+
+        if (!canBeDelivered)
         {
             return;
         }
 
+        acceptedBags.Add(incomingBag);
         AcceptBag(incomingBag);
     }
 
@@ -98,6 +121,14 @@ public class RocketTarget : MonoBehaviour
 
     private void AcceptBag(BagProjectile bag)
     {
+        GroundBagPickup pickup =
+            bag.GetComponent<GroundBagPickup>();
+
+        if (pickup != null)
+        {
+            pickup.MarkAsDelivered();
+        }
+
         if (attachBagToRocket)
         {
             bag.AttachTo(bagAttachPoint);
