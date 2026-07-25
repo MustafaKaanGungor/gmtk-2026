@@ -5,16 +5,39 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
+[DefaultExecutionOrder(10)]
 [RequireComponent(typeof(PlayerMovement2D))]
 [DisallowMultipleComponent]
 public class PlayerGroundBagThrower : MonoBehaviour
 {
-    [Header("References")]
-    [Tooltip(
-        "Boş bırakılırsa ThrowPoint isimli çocuk nesne aranır."
-    )]
-    [SerializeField] private Transform holdPoint;
+    [Header("Hold Points")]
+    [Tooltip("Karakter sola bakarken bavulun duracağı nokta.")]
+    [SerializeField] private Transform leftHoldPoint;
 
+    [Tooltip("Karakter sağa bakarken bavulun duracağı nokta.")]
+    [SerializeField] private Transform rightHoldPoint;
+
+    [Header("Alien Power Visual")]
+    [Tooltip("Animasyonu taşıyan ana nesne. Animator tercihen bunun çocuğunda olmalı.")]
+    [SerializeField] private GameObject alienPowerVisualRoot;
+
+    [Header("Alien Power Flip")]
+    [Tooltip("Karakter sola bakarken animasyonu X ekseninde ters çevirir.")]
+    [SerializeField] private bool flipPowerOnLeft = false;
+
+    [Tooltip("Karakter sağa bakarken animasyonu X ekseninde ters çevirir.")]
+    [SerializeField] private bool flipPowerOnRight = true;
+
+    [Tooltip("Animasyonun normal ölçeği.")]
+    [SerializeField] private Vector3 powerVisualScale = Vector3.one;
+
+    [Tooltip("Karakter sola bakarken animasyonun duracağı nokta.")]
+    [SerializeField] private Transform leftPowerPoint;
+
+    [Tooltip("Karakter sağa bakarken animasyonun duracağı nokta.")]
+    [SerializeField] private Transform rightPowerPoint;
+
+    [Header("Other References")]
     [SerializeField] private Camera gameplayCamera;
 
     [Header("Pickup")]
@@ -22,11 +45,6 @@ public class PlayerGroundBagThrower : MonoBehaviour
     [SerializeField] private float pickupRadius = 1.5f;
 
     [SerializeField] private LayerMask bagLayers = ~0;
-
-    [Tooltip(
-        "Karakter yön değiştirince HoldPoint'in X konumunu aynalar."
-    )]
-    [SerializeField] private bool mirrorHoldPoint = true;
 
     [Header("Throw")]
     [Min(0f)]
@@ -49,7 +67,6 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
     private GroundBagPickup nearbyBag;
     private GroundBagPickup heldBag;
-    private float holdPointAbsoluteX;
 
     public GroundBagPickup NearbyBag => nearbyBag;
     public GroundBagPickup HeldBag => heldBag;
@@ -58,39 +75,57 @@ public class PlayerGroundBagThrower : MonoBehaviour
     public event Action<GroundBagPickup> BagPickedUp;
     public event Action<GroundBagPickup> BagThrown;
 
+    private Transform CurrentHoldPoint
+    {
+        get
+        {
+            if (movement != null && movement.FacingDirection > 0)
+            {
+                return rightHoldPoint;
+            }
+
+            return leftHoldPoint;
+        }
+    }
+
+    private Transform CurrentPowerPoint
+    {
+        get
+        {
+            if (movement != null && movement.FacingDirection > 0)
+            {
+                return rightPowerPoint;
+            }
+
+            return leftPowerPoint;
+        }
+    }
+
     private void Awake()
     {
         movement = GetComponent<PlayerMovement2D>();
+
         playerColliders =
             GetComponentsInChildren<Collider2D>();
-
-        if (holdPoint == null)
-        {
-            Transform foundPoint =
-                transform.Find("ThrowPoint");
-
-            holdPoint =
-                foundPoint != null
-                    ? foundPoint
-                    : transform;
-        }
 
         if (gameplayCamera == null)
         {
             gameplayCamera = Camera.main;
         }
 
-        holdPointAbsoluteX =
-            Mathf.Abs(holdPoint.localPosition.x);
-
         bagFilter = new ContactFilter2D();
         bagFilter.SetLayerMask(bagLayers);
         bagFilter.useTriggers = true;
+
+        if (alienPowerVisualRoot != null)
+        {
+            alienPowerVisualRoot.SetActive(false);
+        }
     }
 
     private void Update()
     {
-        UpdateHoldPointDirection();
+        RefreshDirectionObjects();
 
         if (heldBag == null)
         {
@@ -116,8 +151,17 @@ public class PlayerGroundBagThrower : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        // PlayerMovement2D yönü değiştirdikten sonra
+        // bavul ve efektin doğru tarafta olduğundan emin olur.
+        RefreshDirectionObjects();
+    }
+
     private void FindNearestBag()
     {
+        Transform holdPoint = CurrentHoldPoint;
+
         Vector2 searchPosition =
             holdPoint != null
                 ? holdPoint.position
@@ -144,33 +188,26 @@ public class PlayerGroundBagThrower : MonoBehaviour
             }
 
             GroundBagPickup candidate =
-                result.GetComponentInParent<
-                    GroundBagPickup>();
+                result.GetComponentInParent<GroundBagPickup>();
 
-            if (
-                candidate == null ||
-                !candidate.IsAvailable)
+            if (candidate == null || !candidate.IsAvailable)
             {
                 continue;
             }
 
             float distanceSquared =
                 (
-                    (Vector2)candidate
-                        .transform.position -
+                    (Vector2)candidate.transform.position -
                     searchPosition
                 ).sqrMagnitude;
 
-            if (
-                distanceSquared >=
-                closestDistanceSquared)
+            if (distanceSquared >= closestDistanceSquared)
             {
                 continue;
             }
 
             closestBag = candidate;
-            closestDistanceSquared =
-                distanceSquared;
+            closestDistanceSquared = distanceSquared;
         }
 
         nearbyBag = closestBag;
@@ -183,10 +220,21 @@ public class PlayerGroundBagThrower : MonoBehaviour
             return;
         }
 
+        Transform holdPoint = CurrentHoldPoint;
+
+        if (holdPoint == null)
+        {
+            Debug.LogWarning(
+                "Aktif HoldPoint atanmadığı için bavul alınamadı.",
+                this
+            );
+
+            return;
+        }
+
         GroundBagPickup selectedBag = nearbyBag;
 
-        if (
-            !selectedBag.TryHold(
+        if (!selectedBag.TryHold(
                 holdPoint,
                 playerColliders))
         {
@@ -195,6 +243,8 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
         heldBag = selectedBag;
         nearbyBag = null;
+
+        RefreshDirectionObjects();
 
         BagPickedUp?.Invoke(heldBag);
     }
@@ -216,8 +266,7 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
         GroundBagPickup thrownBag = heldBag;
 
-        if (
-            !thrownBag.TryThrow(
+        if (!thrownBag.TryThrow(
                 throwDirection,
                 throwImpulse,
                 spinImpulse))
@@ -226,16 +275,27 @@ public class PlayerGroundBagThrower : MonoBehaviour
         }
 
         heldBag = null;
+
+        RefreshDirectionObjects();
+
         BagThrown?.Invoke(thrownBag);
     }
 
     private Vector2 CalculateThrowDirection()
     {
+        Transform holdPoint = CurrentHoldPoint;
+
+        Vector2 throwOrigin =
+            holdPoint != null
+                ? holdPoint.position
+                : transform.position;
+
         if (
             aimAtMouse &&
             gameplayCamera != null &&
             TryGetPointerPosition(
-                out Vector2 pointerScreenPosition))
+                out Vector2 pointerScreenPosition)
+        )
         {
             Vector3 pointerWorldPosition =
                 gameplayCamera.ScreenToWorldPoint(
@@ -244,11 +304,9 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
             Vector2 mouseDirection =
                 (Vector2)pointerWorldPosition -
-                (Vector2)holdPoint.position;
+                throwOrigin;
 
-            if (
-                mouseDirection.sqrMagnitude >
-                0.001f)
+            if (mouseDirection.sqrMagnitude > 0.001f)
             {
                 return mouseDirection.normalized;
             }
@@ -260,24 +318,103 @@ public class PlayerGroundBagThrower : MonoBehaviour
         ).normalized;
     }
 
-    private void UpdateHoldPointDirection()
+    private void RefreshDirectionObjects()
     {
+        Transform targetHoldPoint = CurrentHoldPoint;
+
+        /*
+         * Karakter yön değiştirdiyse eldeki bavulu
+         * diğer HoldPoint'in altına taşır.
+         */
         if (
-            !mirrorHoldPoint ||
-            holdPoint == null ||
-            holdPoint == transform)
+            heldBag != null &&
+            targetHoldPoint != null &&
+            heldBag.transform.parent != targetHoldPoint
+        )
+        {
+            heldBag.transform.SetParent(
+                targetHoldPoint,
+                false
+            );
+
+            heldBag.transform.localPosition =
+                Vector3.zero;
+
+            heldBag.transform.localRotation =
+                Quaternion.identity;
+        }
+
+        if (alienPowerVisualRoot == null)
         {
             return;
         }
 
-        Vector3 localPosition =
-            holdPoint.localPosition;
+        Transform targetPowerPoint =
+            CurrentPowerPoint;
 
-        localPosition.x =
-            holdPointAbsoluteX *
-            movement.FacingDirection;
+        bool shouldShowPower =
+            heldBag != null &&
+            targetPowerPoint != null;
 
-        holdPoint.localPosition = localPosition;
+        if (!shouldShowPower)
+        {
+            if (alienPowerVisualRoot.activeSelf)
+            {
+                alienPowerVisualRoot.SetActive(false);
+            }
+
+            return;
+        }
+
+        Transform visualTransform =
+            alienPowerVisualRoot.transform;
+
+        if (visualTransform.parent != targetPowerPoint)
+        {
+            visualTransform.SetParent(
+                targetPowerPoint,
+                false
+            );
+        
+            visualTransform.localPosition =
+                Vector3.zero;
+        
+            visualTransform.localRotation =
+                Quaternion.identity;
+        }
+        
+        UpdatePowerVisualScale();
+        
+        if (!alienPowerVisualRoot.activeSelf)
+        {
+            alienPowerVisualRoot.SetActive(true);
+        }
+    }
+
+    private void UpdatePowerVisualScale()
+    {
+        if (alienPowerVisualRoot == null)
+        {
+            return;
+        }
+
+        bool facingRight =
+            movement != null &&
+            movement.FacingDirection > 0;
+
+        bool shouldFlip =
+            facingRight
+                ? flipPowerOnRight
+                : flipPowerOnLeft;
+
+        Vector3 finalScale = powerVisualScale;
+
+        finalScale.x =
+            Mathf.Abs(finalScale.x) *
+            (shouldFlip ? -1f : 1f);
+
+        alienPowerVisualRoot.transform.localScale =
+            finalScale;
     }
 
     private bool ActionPressed()
@@ -285,13 +422,11 @@ public class PlayerGroundBagThrower : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
         bool keyboardPressed =
             Keyboard.current != null &&
-            Keyboard.current.eKey
-                .wasPressedThisFrame;
+            Keyboard.current.eKey.wasPressedThisFrame;
 
         bool mousePressed =
             Mouse.current != null &&
-            Mouse.current.leftButton
-                .wasPressedThisFrame;
+            Mouse.current.leftButton.wasPressedThisFrame;
 
         return keyboardPressed || mousePressed;
 #else
@@ -323,19 +458,24 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Vector3 center =
-            holdPoint != null
-                ? holdPoint.position
-                : transform.position;
+        if (leftHoldPoint != null)
+        {
+            Gizmos.color = Color.cyan;
 
-        Gizmos.color =
-            nearbyBag != null
-                ? Color.green
-                : Color.yellow;
+            Gizmos.DrawWireSphere(
+                leftHoldPoint.position,
+                pickupRadius
+            );
+        }
 
-        Gizmos.DrawWireSphere(
-            center,
-            pickupRadius
-        );
+        if (rightHoldPoint != null)
+        {
+            Gizmos.color = Color.magenta;
+
+            Gizmos.DrawWireSphere(
+                rightHoldPoint.position,
+                pickupRadius
+            );
+        }
     }
 }

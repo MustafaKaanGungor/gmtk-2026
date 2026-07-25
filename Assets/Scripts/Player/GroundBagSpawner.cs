@@ -5,17 +5,26 @@ using UnityEngine;
 public class GroundBagSpawner : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private BagProjectile bagPrefab;
-    [SerializeField] private Transform[] spawnPoints;
+    [Tooltip(
+        "Spawnlanabilecek bütün çanta prefablarını buraya ekle."
+    )]
+    [SerializeField]
+    private BagProjectile[] bagPrefabs;
+
+    [SerializeField]
+    private Transform[] spawnPoints;
 
     [Header("Spawn")]
     [Min(1)]
-    [SerializeField] private int bagCount = 10;
+    [SerializeField]
+    private int bagCount = 10;
 
     [Min(0f)]
-    [SerializeField] private float horizontalSpacing = 1.1f;
+    [SerializeField]
+    private float horizontalSpacing = 1.1f;
 
-    [SerializeField] private bool spawnOnStart = true;
+    [SerializeField]
+    private bool spawnOnStart = true;
 
     private readonly List<GroundBagPickup> spawnedBags =
         new List<GroundBagPickup>();
@@ -23,7 +32,8 @@ public class GroundBagSpawner : MonoBehaviour
     public IReadOnlyList<GroundBagPickup> SpawnedBags =>
         spawnedBags;
 
-    public int SpawnedBagCount => spawnedBags.Count;
+    public int SpawnedBagCount =>
+        spawnedBags.Count;
 
     private void Start()
     {
@@ -36,10 +46,11 @@ public class GroundBagSpawner : MonoBehaviour
     [ContextMenu("Spawn Bags")]
     public void SpawnBags()
     {
-        if (bagPrefab == null)
+        if (!HasValidBagPrefab())
         {
             Debug.LogError(
-                "GroundBagSpawner: Bag Prefab atanmamış.",
+                "GroundBagSpawner: En az bir geçerli " +
+                "Bag Prefab atanmalı.",
                 this
             );
 
@@ -53,7 +64,8 @@ public class GroundBagSpawner : MonoBehaviour
             spawnPoints.Length > 0
                 ? Mathf.Min(
                     bagCount,
-                    spawnPoints.Length)
+                    spawnPoints.Length
+                )
                 : bagCount;
 
         for (
@@ -68,20 +80,36 @@ public class GroundBagSpawner : MonoBehaviour
                 out Quaternion rotation
             );
 
-            BagProjectile bag = Instantiate(
-                bagPrefab,
-                position,
-                rotation
-            );
+            BagProjectile selectedPrefab =
+                GetRandomBagPrefab();
+
+            if (selectedPrefab == null)
+            {
+                Debug.LogWarning(
+                    "GroundBagSpawner: Rastgele seçilecek " +
+                    "geçerli prefab bulunamadı.",
+                    this
+                );
+
+                continue;
+            }
+
+            BagProjectile spawnedBag =
+                Instantiate(
+                    selectedPrefab,
+                    position,
+                    rotation
+                );
 
             GroundBagPickup pickup =
-                bag.GetComponent<GroundBagPickup>();
+                spawnedBag.GetComponent<GroundBagPickup>();
 
             if (pickup == null)
             {
                 pickup =
-                    bag.gameObject.AddComponent<
-                        GroundBagPickup>();
+                    spawnedBag.gameObject.AddComponent<
+                        GroundBagPickup
+                    >();
             }
             else
             {
@@ -90,6 +118,61 @@ public class GroundBagSpawner : MonoBehaviour
 
             spawnedBags.Add(pickup);
         }
+    }
+
+    private BagProjectile GetRandomBagPrefab()
+    {
+        if (
+            bagPrefabs == null ||
+            bagPrefabs.Length == 0)
+        {
+            return null;
+        }
+
+        // Rastgele bir başlangıç noktası seçilir.
+        int randomStartIndex =
+            Random.Range(0, bagPrefabs.Length);
+
+        // Seçilen alan boşsa dizideki diğer prefablar aranır.
+        for (
+            int offset = 0;
+            offset < bagPrefabs.Length;
+            offset++)
+        {
+            int prefabIndex =
+                (randomStartIndex + offset) %
+                bagPrefabs.Length;
+
+            BagProjectile candidate =
+                bagPrefabs[prefabIndex];
+
+            if (candidate != null)
+            {
+                return candidate;
+            }
+        }
+
+        return null;
+    }
+
+    private bool HasValidBagPrefab()
+    {
+        if (
+            bagPrefabs == null ||
+            bagPrefabs.Length == 0)
+        {
+            return false;
+        }
+
+        foreach (BagProjectile prefab in bagPrefabs)
+        {
+            if (prefab != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void GetSpawnPose(
@@ -108,6 +191,7 @@ public class GroundBagSpawner : MonoBehaviour
 
             position = spawnPoint.position;
             rotation = spawnPoint.rotation;
+
             return;
         }
 
