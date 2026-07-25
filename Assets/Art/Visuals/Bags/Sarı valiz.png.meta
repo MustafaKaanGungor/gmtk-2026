@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: f412903cb07b828b68b1d9c826d8668d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2321222042453045349
+    second: "Sar\u0131 valiz_0"
+  - first:
+      213: -9030178291902856283
+    second: "Sar\u0131 valiz_1"
+  - first:
+      213: 8515352749815603384
+    second: "Sar\u0131 valiz_2"
+  - first:
+      213: 1206755241696158571
+    second: "Sar\u0131 valiz_3"
+  - first:
+      213: 5816252435421089280
+    second: "Sar\u0131 valiz_4"
+  - first:
+      213: 1427898698491907233
+    second: "Sar\u0131 valiz_5"
+  - first:
+      213: -1719952791331706635
+    second: "Sar\u0131 valiz_6"
+  - first:
+      213: 6788704746740818687
+    second: "Sar\u0131 valiz_7"
+  - first:
+      213: -6678548484851202897
+    second: "Sar\u0131 valiz_8"
+  - first:
+      213: 2221033335986020288
+    second: "Sar\u0131 valiz_9"
+  - first:
+      213: -7118601944383249249
+    second: "Sar\u0131 valiz_10"
+  - first:
+      213: 1217272541723056993
+    second: "Sar\u0131 valiz_11"
+  - first:
+      213: 7360472287658005607
+    second: "Sar\u0131 valiz_12"
+  - first:
+      213: 2745676083400935244
+    second: "Sar\u0131 valiz_13"
+  - first:
+      213: -8666165931955225514
+    second: "Sar\u0131 valiz_14"
+  - first:
+      213: -5044361756398433695
+    second: "Sar\u0131 valiz_15"
+  - first:
+      213: 5143939352607784155
+    second: "Sar\u0131 valiz_16"
+  - first:
+      213: -7815260324028531943
+    second: "Sar\u0131 valiz_17"
+  - first:
+      213: -648000733983820822
+    second: "Sar\u0131 valiz_18"
+  - first:
+      213: -7389457359248747691
+    second: "Sar\u0131 valiz_19"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_0"
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 4937
+        width: 2652
+        height: 1522
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9f87cac9dc59cfd0800000000000000
+      internalID: -2321222042453045349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_1"
+      rect:
+        serializedVersion: 2
+        x: 3229
+        y: 6260
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a3cfacffac5ea280800000000000000
+      internalID: -9030178291902856283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_2"
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 5319
+        width: 13
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b0a7eda53c9c2670800000000000000
+      internalID: 8515352749815603384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_3"
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 4758
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b63e328af714fb010800000000000000
+      internalID: 1206755241696158571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_4"
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 4725
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00e464136ca77b050800000000000000
+      internalID: 5816252435421089280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_5"
+      rect:
+        serializedVersion: 2
+        x: 2799
+        y: 3314
+        width: 2652
+        height: 1352
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ac4ada0d4ae0d310800000000000000
+      internalID: 1427898698491907233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_6"
+      rect:
+        serializedVersion: 2
+        x: 5501
+        y: 4637
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f86b3a8c008128e0800000000000000
+      internalID: -1719952791331706635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_7"
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 4509
+        width: 31
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff2ae72cff2563e50800000000000000
+      internalID: 6788704746740818687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_8"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 3402
+        width: 572
+        height: 553
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa4883999870153a0800000000000000
+      internalID: -6678548484851202897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_9"
+      rect:
+        serializedVersion: 2
+        x: 3958
+        y: 3135
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf5fb13d02b2de10800000000000000
+      internalID: 2221033335986020288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_10"
+      rect:
+        serializedVersion: 2
+        x: 3598
+        y: 3102
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f94a1af5f35a53d90800000000000000
+      internalID: -7118601944383249249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_11"
+      rect:
+        serializedVersion: 2
+        x: 3260
+        y: 2886
+        width: 31
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b5d346dee94e010800000000000000
+      internalID: 1217272541723056993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_12"
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 2278
+        width: 707
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76456f45c86a52660800000000000000
+      internalID: 7360472287658005607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_13"
+      rect:
+        serializedVersion: 2
+        x: 2421
+        y: 2355
+        width: 371
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c470663c9d99a1620800000000000000
+      internalID: 2745676083400935244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_14"
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 2143
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65c773d00089bb780800000000000000
+      internalID: -8666165931955225514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_15"
+      rect:
+        serializedVersion: 2
+        x: 3594
+        y: 765
+        width: 1470
+        height: 1379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16a4e4f65b3def9b0800000000000000
+      internalID: -5044361756398433695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_16"
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 717
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdcf6526691f26740800000000000000
+      internalID: 5143939352607784155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_17"
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 684
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b331f642e9a8390800000000000000
+      internalID: -7815260324028531943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_18"
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 577
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae3b3b404c6d107f0800000000000000
+      internalID: -648000733983820822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sar\u0131 valiz_19"
+      rect:
+        serializedVersion: 2
+        x: 2888
+        y: 520
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 553151bceaf537990800000000000000
+      internalID: -7389457359248747691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Sar\u0131 valiz_0": -2321222042453045349
+      "Sar\u0131 valiz_1": -9030178291902856283
+      "Sar\u0131 valiz_10": -7118601944383249249
+      "Sar\u0131 valiz_11": 1217272541723056993
+      "Sar\u0131 valiz_12": 7360472287658005607
+      "Sar\u0131 valiz_13": 2745676083400935244
+      "Sar\u0131 valiz_14": -8666165931955225514
+      "Sar\u0131 valiz_15": -5044361756398433695
+      "Sar\u0131 valiz_16": 5143939352607784155
+      "Sar\u0131 valiz_17": -7815260324028531943
+      "Sar\u0131 valiz_18": -648000733983820822
+      "Sar\u0131 valiz_19": -7389457359248747691
+      "Sar\u0131 valiz_2": 8515352749815603384
+      "Sar\u0131 valiz_3": 1206755241696158571
+      "Sar\u0131 valiz_4": 5816252435421089280
+      "Sar\u0131 valiz_5": 1427898698491907233
+      "Sar\u0131 valiz_6": -1719952791331706635
+      "Sar\u0131 valiz_7": 6788704746740818687
+      "Sar\u0131 valiz_8": -6678548484851202897
+      "Sar\u0131 valiz_9": 2221033335986020288
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

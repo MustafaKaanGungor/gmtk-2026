@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5492528946338379887}
   - component: {fileID: 3022171999568335461}
-  - component: {fileID: 3095337127846251858}
   m_Layer: 0
   m_Name: BagVisual
   m_TagString: Untagged
@@ -27,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 1143767963963098260}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.6, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.8241, y: 0.656, z: 0}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8445520071163138875}
   m_Father: {fileID: 7727622776635255614}
@@ -83,8 +82,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.4245283, g: 0.22011098, b: 0.0740922, a: 1}
+  m_Sprite: {fileID: -8047705681662037420, guid: 310d96ab15277bf37ba2600804f02cf3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -93,27 +92,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &3095337127846251858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143767963963098260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8d0ae726b40bd01b60ea3be8602aca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteArtSlot
-  artConfig: {fileID: 11400000, guid: e5b52d620d3bc9a6e8748339512811fd, type: 2}
-  artType: 4
-  preserveAspectRatio: 1
-  placeholderOnlyObjects:
-  - {fileID: 7158068883035882108}
-  placeholderSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  placeholderColor: {r: 0.4245283, g: 0.22011098, b: 0.0740922, a: 1}
-  placeholderLocalScale: {x: 0.8, y: 0.6, z: 1}
-  placeholderVisualSize: {x: 0.8, y: 0.6}
 --- !u!1 &7158068883035882108
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,8 +118,8 @@ Transform:
   m_GameObject: {fileID: 7158068883035882108}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.25, z: 1}
+  m_LocalPosition: {x: -0.091, y: 7.96, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5492528946338379887}
@@ -195,8 +173,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 11
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3773585, g: 0.16839756, b: 0.044499815, a: 1}
+  m_Sprite: {fileID: -1352254108956572691, guid: 310d96ab15277bf37ba2600804f02cf3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -218,7 +196,7 @@ GameObject:
   - component: {fileID: 3793728350551329892}
   - component: {fileID: 4798132498850860277}
   m_Layer: 0
-  m_Name: Bag
+  m_Name: Bag1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,7 +252,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.57297224, y: 0.47925884}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -284,7 +262,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 0.6}
+  m_Size: {x: 0.9637064, y: 0.6053833}
   m_EdgeRadius: 0.05
 --- !u!50 &3793728350551329892
 Rigidbody2D:

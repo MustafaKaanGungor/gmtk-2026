@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: bda65ae570793f267b49a57ec7924c6c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7264208272937454259
+    second: Turkuaz valiz_0
+  - first:
+      213: -6775150373686762816
+    second: Turkuaz valiz_1
+  - first:
+      213: 4267965495310069559
+    second: Turkuaz valiz_2
+  - first:
+      213: -6383346112271238252
+    second: Turkuaz valiz_3
+  - first:
+      213: -2038763615114652238
+    second: Turkuaz valiz_4
+  - first:
+      213: -2777026707791186105
+    second: Turkuaz valiz_5
+  - first:
+      213: -1709255038293865551
+    second: Turkuaz valiz_6
+  - first:
+      213: 3837348688658673382
+    second: Turkuaz valiz_7
+  - first:
+      213: -1484502678239338809
+    second: Turkuaz valiz_8
+  - first:
+      213: -1728143245714124703
+    second: Turkuaz valiz_9
+  - first:
+      213: -6384110884863142070
+    second: Turkuaz valiz_10
+  - first:
+      213: -387033732078462660
+    second: Turkuaz valiz_11
+  - first:
+      213: 6261092846347772113
+    second: Turkuaz valiz_12
+  - first:
+      213: -2431392604529560643
+    second: Turkuaz valiz_13
+  - first:
+      213: 453342222117172183
+    second: Turkuaz valiz_14
+  - first:
+      213: 7714051207577112603
+    second: Turkuaz valiz_15
+  - first:
+      213: -1360006759770754808
+    second: Turkuaz valiz_16
+  - first:
+      213: -4808620264003284071
+    second: Turkuaz valiz_17
+  - first:
+      213: -3232124169506456805
+    second: Turkuaz valiz_18
+  - first:
+      213: -2637344390923726334
+    second: Turkuaz valiz_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Turkuaz valiz_0
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 4937
+        width: 2652
+        height: 1522
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ba04e2dfe6afc460800000000000000
+      internalID: 7264208272937454259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_1
+      rect:
+        serializedVersion: 2
+        x: 3229
+        y: 6260
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c2ab84a1a4d9f1a0800000000000000
+      internalID: -6775150373686762816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_2
+      rect:
+        serializedVersion: 2
+        x: 5065
+        y: 5165
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73fa49d510cda3b30800000000000000
+      internalID: 4267965495310069559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_3
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 4758
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49bb3b3088cc967a0800000000000000
+      internalID: -6383346112271238252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_4
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 4725
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b5991c3b4bd4b3e0800000000000000
+      internalID: -2038763615114652238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_5
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 4509
+        width: 31
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 747755e2ce40679d0800000000000000
+      internalID: -2777026707791186105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_6
+      rect:
+        serializedVersion: 2
+        x: 2728
+        y: 3043
+        width: 2651
+        height: 1564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bb82f349918748e0800000000000000
+      internalID: -1709255038293865551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_7
+      rect:
+        serializedVersion: 2
+        x: 5429
+        y: 4578
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eeafca1d40014530800000000000000
+      internalID: 3837348688658673382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_8
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 3402
+        width: 572
+        height: 553
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce9d6bedacf56be0800000000000000
+      internalID: -1484502678239338809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_9
+      rect:
+        serializedVersion: 2
+        x: 3189
+        y: 2936
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1601836cfd66408e0800000000000000
+      internalID: -1728143245714124703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_10
+      rect:
+        serializedVersion: 2
+        x: 3208
+        y: 2826
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a47170589f41767a0800000000000000
+      internalID: -6384110884863142070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_11
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 2278
+        width: 707
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c399e5b0fdaf0aaf0800000000000000
+      internalID: -387033732078462660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_12
+      rect:
+        serializedVersion: 2
+        x: 2421
+        y: 2355
+        width: 371
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d06c4465ced3e650800000000000000
+      internalID: 6261092846347772113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_13
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 2143
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db3f089ee45f14ed0800000000000000
+      internalID: -2431392604529560643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_14
+      rect:
+        serializedVersion: 2
+        x: 3994
+        y: 1568
+        width: 512
+        height: 719
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d3fafe59589a4600800000000000000
+      internalID: 453342222117172183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_15
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 717
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b109ec6d3b0dd0b60800000000000000
+      internalID: 7714051207577112603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_16
+      rect:
+        serializedVersion: 2
+        x: 4483
+        y: 705
+        width: 510
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 801fbbfbe09402de0800000000000000
+      internalID: -1360006759770754808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_17
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 684
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 993d658d859544db0800000000000000
+      internalID: -4808620264003284071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_18
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 577
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1bfc9e31303523d0800000000000000
+      internalID: -3232124169506456805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Turkuaz valiz_19
+      rect:
+        serializedVersion: 2
+        x: 2816
+        y: 460
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2025f9cef35466bd0800000000000000
+      internalID: -2637344390923726334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Turkuaz valiz_0: 7264208272937454259
+      Turkuaz valiz_1: -6775150373686762816
+      Turkuaz valiz_10: -6384110884863142070
+      Turkuaz valiz_11: -387033732078462660
+      Turkuaz valiz_12: 6261092846347772113
+      Turkuaz valiz_13: -2431392604529560643
+      Turkuaz valiz_14: 453342222117172183
+      Turkuaz valiz_15: 7714051207577112603
+      Turkuaz valiz_16: -1360006759770754808
+      Turkuaz valiz_17: -4808620264003284071
+      Turkuaz valiz_18: -3232124169506456805
+      Turkuaz valiz_19: -2637344390923726334
+      Turkuaz valiz_2: 4267965495310069559
+      Turkuaz valiz_3: -6383346112271238252
+      Turkuaz valiz_4: -2038763615114652238
+      Turkuaz valiz_5: -2777026707791186105
+      Turkuaz valiz_6: -1709255038293865551
+      Turkuaz valiz_7: 3837348688658673382
+      Turkuaz valiz_8: -1484502678239338809
+      Turkuaz valiz_9: -1728143245714124703
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
