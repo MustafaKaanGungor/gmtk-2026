@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9b2dd834d344dc54a825570edbdba277
+guid: 7bd6352be97ca1341a2c99c88961b488
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2998216230108112219
-    second: Tiledalt_0
+      213: -1480983564546255094
+    second: "Tiledu\u0308st2_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tiledalt_0
+      name: "Tiledu\u0308st2_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b55a76ba6cdcb9920800000000000000
-      internalID: 2998216230108112219
+      spriteID: a07570d6b4d727be0800000000000000
+      internalID: -1480983564546255094
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Tiledalt_0: 2998216230108112219
+      "Tiledu\u0308st2_0": -1480983564546255094
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

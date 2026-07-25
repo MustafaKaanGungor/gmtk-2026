@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ba715476fc1aeda4dbc84205beb570c2
+guid: f61fbb724460cab43a8ac86c89289bd0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4443988776276599517
-    second: Tiledblank_0
+      213: 4984690336572986375
+    second: "Ko\u0308s\u0327e_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tiledblank_0
+      name: "Ko\u0308s\u0327e_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd22acb2f383cad30800000000000000
-      internalID: 4443988776276599517
+      spriteID: 70451ca737d2d2540800000000000000
+      internalID: 4984690336572986375
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Tiledblank_0: 4443988776276599517
+      "Ko\u0308s\u0327e_0": 4984690336572986375
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

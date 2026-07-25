@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: "Tiledu\u0308st (1)"
+  m_Name: "U\u0308c\u0327gen tas\u0327l\u0131"
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 21300000, guid: 287bcb5f2452ab9448c9c863be0b303b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf465d90f3df33b47aada452cdb48fe0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
