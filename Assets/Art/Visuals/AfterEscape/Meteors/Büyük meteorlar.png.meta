@@ -1,0 +1,249 @@
+fileFormatVersion: 2
+guid: 18e2377f74e7dbe8aafd810429382b15
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8334123199124956036
+    second: "B\xFCy\xFCk meteorlar_0"
+  - first:
+      213: -5750534892368312661
+    second: "B\xFCy\xFCk meteorlar_1"
+  - first:
+      213: -353875111386328650
+    second: "B\xFCy\xFCk meteorlar_2"
+  - first:
+      213: 3415395440819980203
+    second: "B\xFCy\xFCk meteorlar_3"
+  - first:
+      213: -3470009639249231601
+    second: "B\xFCy\xFCk meteorlar_4"
+  - first:
+      213: -4342719823836340303
+    second: "B\xFCy\xFCk meteorlar_5"
+  - first:
+      213: -1607816659452264252
+    second: "B\xFCy\xFCk meteorlar_6"
+  - first:
+      213: 5081391110931939335
+    second: "B\xFCy\xFCk meteorlar_7"
+  - first:
+      213: -8789615297735267049
+    second: "B\xFCy\xFCk meteorlar_8"
+  - first:
+      213: -5906639894674867927
+    second: "B\xFCy\xFCk meteorlar_9"
+  - first:
+      213: -8689424892384314351
+    second: "B\xFCy\xFCk meteorlar_10"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "B\xFCy\xFCk meteorlar_0"
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 3083
+        width: 1466
+        height: 1508
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7c90d14b1f375c80800000000000000
+      internalID: -8334123199124956036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCk meteorlar_2"
+      rect:
+        serializedVersion: 2
+        x: 3796
+        y: 3086
+        width: 1632
+        height: 1377
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b157fa0678c61bf0800000000000000
+      internalID: -353875111386328650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCk meteorlar_4"
+      rect:
+        serializedVersion: 2
+        x: 3850
+        y: 606
+        width: 1483
+        height: 1515
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f014e553e9c08dfc0800000000000000
+      internalID: -3470009639249231601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCk meteorlar_6"
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 460
+        width: 1632
+        height: 1377
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c0846d4443efa9e0800000000000000
+      internalID: -1607816659452264252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f3a67565b175a66a883796758687ba3c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "B\xFCy\xFCk meteorlar_0": -8334123199124956036
+      "B\xFCy\xFCk meteorlar_1": -5750534892368312661
+      "B\xFCy\xFCk meteorlar_10": -8689424892384314351
+      "B\xFCy\xFCk meteorlar_2": -353875111386328650
+      "B\xFCy\xFCk meteorlar_3": 3415395440819980203
+      "B\xFCy\xFCk meteorlar_4": -3470009639249231601
+      "B\xFCy\xFCk meteorlar_5": -4342719823836340303
+      "B\xFCy\xFCk meteorlar_6": -1607816659452264252
+      "B\xFCy\xFCk meteorlar_7": 5081391110931939335
+      "B\xFCy\xFCk meteorlar_8": -8789615297735267049
+      "B\xFCy\xFCk meteorlar_9": -5906639894674867927
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -123,6 +123,32 @@ public class PlayerGroundBagThrower : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (heldBag == null)
+        {
+            return;
+        }
+
+        if (heldBag.IsDelivered)
+        {
+            heldBag = null;
+            RefreshDirectionObjects();
+            return;
+        }
+
+        heldBag.Delivered -= HandleHeldBagDelivered;
+        heldBag.Delivered += HandleHeldBagDelivered;
+    }
+
+    private void OnDisable()
+    {
+        if (heldBag != null)
+        {
+            heldBag.Delivered -= HandleHeldBagDelivered;
+        }
+    }
+
     private void Update()
     {
         RefreshDirectionObjects();
@@ -242,6 +268,7 @@ public class PlayerGroundBagThrower : MonoBehaviour
         }
 
         heldBag = selectedBag;
+        heldBag.Delivered += HandleHeldBagDelivered;
         nearbyBag = null;
 
         RefreshDirectionObjects();
@@ -274,11 +301,28 @@ public class PlayerGroundBagThrower : MonoBehaviour
             return;
         }
 
+        thrownBag.Delivered -= HandleHeldBagDelivered;
         heldBag = null;
 
         RefreshDirectionObjects();
 
         BagThrown?.Invoke(thrownBag);
+    }
+
+    private void HandleHeldBagDelivered(
+        GroundBagPickup deliveredBag)
+    {
+        if (deliveredBag == null || heldBag != deliveredBag)
+        {
+            return;
+        }
+
+        deliveredBag.Delivered -= HandleHeldBagDelivered;
+
+        heldBag = null;
+        nearbyBag = null;
+
+        RefreshDirectionObjects();
     }
 
     private Vector2 CalculateThrowDirection()
