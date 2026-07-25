@@ -1120,9 +1120,9 @@ MonoBehaviour:
   rocketTarget: {fileID: 2000783540}
   scoreController: {fileID: 435126117}
   gameUIController: {fileID: 1574006148}
-  taskManager: {fileID: 0}
-  bagTaskId: bag_delivery
-  requiredDeliveredBags: 0
+  taskManager: {fileID: 1823948673}
+  bagTaskId: collect_bags
+  requiredDeliveredBags: 10
 --- !u!114 &435126117
 MonoBehaviour:
   m_ObjectHideFlags: 0
