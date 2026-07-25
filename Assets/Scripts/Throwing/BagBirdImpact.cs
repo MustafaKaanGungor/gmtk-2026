@@ -59,6 +59,7 @@ public class BagBirdImpact : MonoBehaviour
         if (pickup != null)
         {
             pickup.ReturnedToGround += HandleReturnedToGround;
+            pickup.PickedUp += HandlePickedUp;
         }
 
         ResetImpactState();
@@ -69,6 +70,7 @@ public class BagBirdImpact : MonoBehaviour
         if (pickup != null)
         {
             pickup.ReturnedToGround -= HandleReturnedToGround;
+            pickup.PickedUp -= HandlePickedUp;
         }
     }
 
@@ -105,8 +107,9 @@ public class BagBirdImpact : MonoBehaviour
             return false;
         }
 
-        // Yerde duran ve alınabilir olan çanta etkilenmesin.
-        if (pickup.IsAvailable)
+        // Yerde duran bavul etkilenmesin. Havadayken yakalanabilir
+        // olması kuş çarpışmasını devre dışı bırakmamalı.
+        if (!pickup.IsInFlight)
         {
             return false;
         }
@@ -167,6 +170,19 @@ public class BagBirdImpact : MonoBehaviour
             return;
         }
 
+        ResetImpactState();
+    }
+
+    private void HandlePickedUp(
+        GroundBagPickup pickedUpBag)
+    {
+        if (pickedUpBag != pickup)
+        {
+            return;
+        }
+
+        // Kuşa çarptıktan sonra havada yakalanan bavulun
+        // sonraki fırlatmada X ekseninde kilitli kalmasını önler.
         ResetImpactState();
     }
 
