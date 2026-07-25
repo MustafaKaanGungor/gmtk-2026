@@ -29,6 +29,20 @@ public class ThrowGameController : MonoBehaviour
     [SerializeField]
     private GameUIController gameUIController;
 
+    [Header("Task Integration")]
+    [Tooltip("Opsiyonel. Atanirsa yeterli sayida canta teslim edilince gorev tamamlanir.")]
+    [SerializeField]
+    private TaskManager taskManager;
+
+    [Tooltip("Tamamlanacak canta gorevinin kimligi.")]
+    [SerializeField]
+    private string bagTaskId = "bag_delivery";
+
+    [Tooltip("Gorevin tamamlanmasi icin gereken teslim edilmis canta sayisi. " +
+        "0 veya daha az ise butun cantalar teslim edilince tamamlanir.")]
+    [SerializeField]
+    private int requiredDeliveredBags = 0;
+
     private readonly HashSet<GroundBagPickup>
     activeThrownBags =
     new HashSet<GroundBagPickup>();
@@ -230,9 +244,31 @@ public class ThrowGameController : MonoBehaviour
             " puan."
         );
 
+        TryCompleteBagTask();
+
         if (deliveredBagCount >= totalBagCount)
         {
             FinishGame();
+        }
+    }
+
+    private void TryCompleteBagTask()
+    {
+        if (taskManager == null)
+        {
+            return;
+        }
+
+        // 0 veya daha az ise tum cantalar teslim edilince tamamlanir.
+        int requiredCount =
+            requiredDeliveredBags > 0
+                ? requiredDeliveredBags
+                : totalBagCount;
+
+        if (deliveredBagCount >= requiredCount)
+        {
+            // CompleteTask zaten tamamlanmis gorevleri tekrar tetiklemez.
+            taskManager.CompleteTask(bagTaskId);
         }
     }
 
