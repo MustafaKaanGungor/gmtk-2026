@@ -398,4 +398,4 @@ MonoBehaviour:
   initialDownwardSpeed: 0
   impactGravityScale: 1.5
   lockHorizontalPosition: 1
-  freezeRotation: 1
+  freezeRotation: 0
