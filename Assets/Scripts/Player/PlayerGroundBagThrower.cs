@@ -44,6 +44,13 @@ public class PlayerGroundBagThrower : MonoBehaviour
     [Min(0.1f)]
     [SerializeField] private float pickupRadius = 1.5f;
 
+    [Tooltip(
+        "Oyuncu alma tuşuna bavul menzile girmeden hemen önce basarsa " +
+        "girdiyi bu süre boyunca saklar."
+    )]
+    [Min(0f)]
+    [SerializeField] private float catchInputBufferDuration = 0.12f;
+
     [SerializeField] private LayerMask bagLayers = ~0;
 
     [Header("Throw")]
@@ -67,6 +74,7 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
     private GroundBagPickup nearbyBag;
     private GroundBagPickup heldBag;
+    private float catchInputBufferTimer;
 
     public GroundBagPickup NearbyBag => nearbyBag;
     public GroundBagPickup HeldBag => heldBag;
@@ -153,27 +161,48 @@ public class PlayerGroundBagThrower : MonoBehaviour
     {
         RefreshDirectionObjects();
 
-        if (heldBag == null)
-        {
-            FindNearestBag();
-        }
-        else
+        bool actionPressed = ActionPressed();
+
+        if (heldBag != null)
         {
             nearbyBag = null;
+            catchInputBufferTimer = 0f;
+
+            if (actionPressed)
+            {
+                TryThrowHeldBag();
+            }
+
+            return;
         }
 
-        if (!ActionPressed())
+        FindNearestBag();
+
+        if (actionPressed)
+        {
+            catchInputBufferTimer =
+                catchInputBufferDuration;
+
+            if (TryPickUpNearbyBag())
+            {
+                catchInputBufferTimer = 0f;
+                return;
+            }
+        }
+
+        if (catchInputBufferTimer <= 0f)
         {
             return;
         }
 
-        if (heldBag == null)
+        catchInputBufferTimer = Mathf.Max(
+            0f,
+            catchInputBufferTimer - Time.deltaTime
+        );
+
+        if (TryPickUpNearbyBag())
         {
-            TryPickUpNearbyBag();
-        }
-        else
-        {
-            TryThrowHeldBag();
+            catchInputBufferTimer = 0f;
         }
     }
 
@@ -216,16 +245,16 @@ public class PlayerGroundBagThrower : MonoBehaviour
             GroundBagPickup candidate =
                 result.GetComponentInParent<GroundBagPickup>();
 
-            if (candidate == null || !candidate.IsAvailable)
+            if (candidate == null || !candidate.CanBePickedUp)
             {
                 continue;
             }
 
+            Vector2 closestPoint =
+                result.ClosestPoint(searchPosition);
+
             float distanceSquared =
-                (
-                    (Vector2)candidate.transform.position -
-                    searchPosition
-                ).sqrMagnitude;
+                (closestPoint - searchPosition).sqrMagnitude;
 
             if (distanceSquared >= closestDistanceSquared)
             {
@@ -239,11 +268,11 @@ public class PlayerGroundBagThrower : MonoBehaviour
         nearbyBag = closestBag;
     }
 
-    private void TryPickUpNearbyBag()
+    private bool TryPickUpNearbyBag()
     {
         if (nearbyBag == null)
         {
-            return;
+            return false;
         }
 
         Transform holdPoint = CurrentHoldPoint;
@@ -255,7 +284,7 @@ public class PlayerGroundBagThrower : MonoBehaviour
                 this
             );
 
-            return;
+            return false;
         }
 
         GroundBagPickup selectedBag = nearbyBag;
@@ -264,7 +293,8 @@ public class PlayerGroundBagThrower : MonoBehaviour
                 holdPoint,
                 playerColliders))
         {
-            return;
+            nearbyBag = null;
+            return false;
         }
 
         heldBag = selectedBag;
@@ -274,6 +304,8 @@ public class PlayerGroundBagThrower : MonoBehaviour
         RefreshDirectionObjects();
 
         BagPickedUp?.Invoke(heldBag);
+
+        return true;
     }
 
     private void TryThrowHeldBag()

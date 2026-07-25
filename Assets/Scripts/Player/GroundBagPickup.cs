@@ -16,6 +16,14 @@ public class GroundBagPickup : MonoBehaviour
     [Min(0f)]
     [SerializeField] private float groundGravityScale = 1.5f;
 
+    [Header("Pickup")]
+    [Tooltip(
+        "Fırlatılan bavulun yanlışlıkla anında geri alınmasını önler. " +
+        "Bu süre dolunca bavul hareket ediyor veya havada olsa da alınabilir."
+    )]
+    [Min(0f)]
+    [SerializeField] private float pickupCooldownAfterThrow = 0.2f;
+
     [Header("Return To Ground")]
     [Tooltip(
         "Fırlatıldıktan sonra bu süre dolmadan durma kontrolü yapılmaz."
@@ -43,16 +51,28 @@ public class GroundBagPickup : MonoBehaviour
     private bool waitingToBecomeAvailable;
     private float flightTimer;
     private float stoppedTimer;
+    private float pickupCooldownTimer;
 
     public bool IsAvailable { get; private set; }
     public bool IsHeld { get; private set; }
     public bool IsDelivered { get; private set; }
+    public bool IsInFlight => waitingToBecomeAvailable;
+
+    public bool CanBePickedUp =>
+        !IsHeld &&
+        !IsDelivered &&
+        pickupCooldownTimer <= 0f &&
+        body != null &&
+        body.simulated &&
+        body.bodyType == RigidbodyType2D.Dynamic;
+
     public BagProjectile Projectile => projectile;
 
     /// <summary>
     /// Fırlatılan bavul yerde durup yeniden alınabilir olduğunda çalışır.
     /// </summary>
     public event Action<GroundBagPickup> ReturnedToGround;
+    public event Action<GroundBagPickup> PickedUp;
     public event Action<GroundBagPickup> Delivered;
 
     private void Awake()
@@ -66,6 +86,7 @@ public class GroundBagPickup : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdatePickupCooldown();
         UpdateReturnToGroundState();
     }
 
@@ -96,6 +117,7 @@ public class GroundBagPickup : MonoBehaviour
         waitingToBecomeAvailable = false;
         flightTimer = 0f;
         stoppedTimer = 0f;
+        pickupCooldownTimer = 0f;
     }
 
     public bool TryHold(
@@ -103,7 +125,7 @@ public class GroundBagPickup : MonoBehaviour
         Collider2D[] newHolderColliders)
     {
         if (
-            !IsAvailable ||
+            !CanBePickedUp ||
             projectile == null ||
             holdPoint == null)
         {
@@ -116,6 +138,7 @@ public class GroundBagPickup : MonoBehaviour
 
         flightTimer = 0f;
         stoppedTimer = 0f;
+        pickupCooldownTimer = 0f;
 
         holderColliders = newHolderColliders;
 
@@ -123,6 +146,8 @@ public class GroundBagPickup : MonoBehaviour
 
         body.simulated = true;
         projectile.HoldAt(holdPoint);
+
+        PickedUp?.Invoke(this);
 
         return true;
     }
@@ -147,6 +172,7 @@ public class GroundBagPickup : MonoBehaviour
         waitingToBecomeAvailable = false;
         flightTimer = 0f;
         stoppedTimer = 0f;
+        pickupCooldownTimer = 0f;
 
         holderColliders = null;
 
@@ -189,10 +215,24 @@ public class GroundBagPickup : MonoBehaviour
         waitingToBecomeAvailable = true;
         flightTimer = 0f;
         stoppedTimer = 0f;
+        pickupCooldownTimer = pickupCooldownAfterThrow;
 
         holderColliders = null;
 
         return true;
+    }
+
+    private void UpdatePickupCooldown()
+    {
+        if (pickupCooldownTimer <= 0f)
+        {
+            return;
+        }
+
+        pickupCooldownTimer = Mathf.Max(
+            0f,
+            pickupCooldownTimer - Time.fixedDeltaTime
+        );
     }
 
     private void UpdateReturnToGroundState()

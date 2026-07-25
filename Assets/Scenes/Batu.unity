@@ -943,9 +943,9 @@ Transform:
   m_GameObject: {fileID: 383768590}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 1.3, z: 0}
+  m_LocalPosition: {x: -1.75, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2113150557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1316,9 +1316,9 @@ Transform:
   m_GameObject: {fileID: 536828270}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.547, y: 0.734, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 2.55, y: 0.35, z: 0}
+  m_LocalScale: {x: 2.9, y: 2.9, z: 2.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1401987637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1557,6 +1557,7 @@ MonoBehaviour:
   greenZoneMax: 0.6
   inZoneColor: {r: 0, g: 1, b: 0, a: 1}
   outOfZoneColor: {r: 1, g: 0, b: 0, a: 1}
+  pumpLoopSound: Pressure_Pump_Loop
   pumpKey: 32
   playOnStart: 0
 --- !u!114 &588775659
@@ -3485,9 +3486,9 @@ Transform:
   m_GameObject: {fileID: 1277492381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.887, y: 0.807, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -1.75, y: 0.35, z: 0}
+  m_LocalScale: {x: 2.9, y: 2.9, z: 2.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1401987637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3666,7 +3667,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 20
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3736,6 +3737,8 @@ MonoBehaviour:
   - taskId: collect_bags
     title: 
     description: 
+  taskCompletedSound: Task_Completed
+  allTasksCompletedSound: All_Tasks_Completed
 --- !u!4 &1440419994
 Transform:
   m_ObjectHideFlags: 0
@@ -4354,6 +4357,7 @@ MonoBehaviour:
   requiredHoldTime: 10
   requireContinuousHold: 0
   stopPumpOnSuccess: 1
+  successSound: Pressure_Success
 --- !u!4 &1775172696
 Transform:
   m_ObjectHideFlags: 0
@@ -4556,6 +4560,7 @@ MonoBehaviour:
   rightPowerPoint: {fileID: 536828271}
   gameplayCamera: {fileID: 217170403}
   pickupRadius: 1.5
+  catchInputBufferDuration: 0.12
   bagLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4685,7 +4690,7 @@ Transform:
   m_GameObject: {fileID: 1938742072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1.3, z: 0}
+  m_LocalPosition: {x: 2.21, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5119,7 +5124,7 @@ Transform:
   m_GameObject: {fileID: 2113150556}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
