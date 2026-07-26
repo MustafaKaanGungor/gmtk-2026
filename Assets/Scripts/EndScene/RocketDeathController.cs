@@ -11,30 +11,55 @@ public class RocketDeathController : MonoBehaviour
     [Header("Death Screen")]
     [SerializeField] private CanvasGroup deathScreenCanvasGroup;
 
+    [Tooltip(
+        "Normal meteor ölümünde gösterilecek yazı ve "
+        + "Tekrar Oyna butonunun bulunduğu nesne."
+    )]
+    [SerializeField] private GameObject retryContentRoot;
+
     [Header("Fade Settings")]
     [Min(0.01f)]
     [SerializeField] private float fadeDuration = 0.5f;
 
+    [Header("Final Scene Transition")]
+    [Tooltip(
+        "Final ölümünden sonra yüklenecek sahnenin "
+        + "Scene List içerisindeki tam adı."
+    )]
+    [SerializeField] private string finalSceneName =
+        "StoryboardScene";
+
+    [Tooltip(
+        "Ekran tamamen karardıktan sonra yeni sahneye "
+        + "geçmeden önce beklenecek süre."
+    )]
+    [Min(0f)]
+    [SerializeField] private float finalBlackHoldDuration = 0.4f;
+
     private bool isDead;
     private bool isRestarting;
+    private bool isLoadingFinalScene;
 
     public bool IsDead => isDead;
 
     private void Awake()
     {
-        // Sahne yeniden yüklendiğinde oyun duraklatılmış başlamasın.
+        // Önceki sahne zamanı durdurmuş olabilir.
         Time.timeScale = 1f;
 
         isDead = false;
         isRestarting = false;
+        isLoadingFinalScene = false;
 
         HideDeathScreenImmediately();
     }
 
+    /// <summary>
+    /// Normal meteor ölümüdür.
+    /// Ölüm ekranını ve Tekrar Oyna butonunu gösterir.
+    /// </summary>
     public void KillRocket()
     {
-        // Aynı anda birden fazla meteor çarparsa
-        // ölüm sistemi yalnızca bir kez çalışsın.
         if (isDead)
         {
             return;
@@ -42,30 +67,127 @@ public class RocketDeathController : MonoBehaviour
 
         isDead = true;
 
-        // Oyuncunun roket kontrolünü kapat.
+        StopGameplay();
+
+        StartCoroutine(
+            ShowRetryDeathScreen()
+        );
+    }
+
+    /// <summary>
+    /// Final sekansındaki hikâye ölümüdür.
+    /// Tekrar Oyna ekranını göstermeden sonraki sahneye geçer.
+    /// </summary>
+    public void KillRocketAndLoadFinalScene()
+    {
+        if (isDead || isLoadingFinalScene)
+        {
+            return;
+        }
+
+        isDead = true;
+        isLoadingFinalScene = true;
+
+        StopGameplay();
+
+        StartCoroutine(
+            FadeAndLoadFinalScene()
+        );
+    }
+
+    private void StopGameplay()
+    {
         if (rocketMovement != null)
         {
             rocketMovement.SetMovementEnabled(false);
         }
 
-        // Yeni meteor üretilmesini durdur.
         if (meteorSpawner != null)
         {
             meteorSpawner.StopSpawning();
         }
 
-        // Roketi, mevcut meteorları ve arka planı dondur.
+        // Roket, arka plan ve düşen nesneler donar.
         Time.timeScale = 0f;
-
-        StartCoroutine(ShowDeathScreen());
     }
 
-    private IEnumerator ShowDeathScreen()
+    private IEnumerator ShowRetryDeathScreen()
+    {
+        if (retryContentRoot != null)
+        {
+            retryContentRoot.SetActive(true);
+        }
+
+        yield return FadeToBlack();
+
+        if (deathScreenCanvasGroup != null)
+        {
+            deathScreenCanvasGroup.interactable = true;
+            deathScreenCanvasGroup.blocksRaycasts = true;
+        }
+    }
+
+    private IEnumerator FadeAndLoadFinalScene()
+    {
+        // Final ölümünde ölüm yazısı ve tekrar butonu görünmesin.
+        if (retryContentRoot != null)
+        {
+            retryContentRoot.SetActive(false);
+        }
+
+        yield return FadeToBlack();
+
+        if (finalBlackHoldDuration > 0f)
+        {
+            yield return new WaitForSecondsRealtime(
+                finalBlackHoldDuration
+            );
+        }
+
+        if (string.IsNullOrWhiteSpace(finalSceneName))
+        {
+            Debug.LogError(
+                "RocketDeathController: Final Scene Name boş.",
+                this
+            );
+
+            yield break;
+        }
+
+        // Yeni sahne donmuş başlamasın.
+        Time.timeScale = 1f;
+
+        AsyncOperation loadOperation =
+            SceneManager.LoadSceneAsync(
+                finalSceneName,
+                LoadSceneMode.Single
+            );
+
+        if (loadOperation == null)
+        {
+            Debug.LogError(
+                $"RocketDeathController: "
+                + $"{finalSceneName} sahnesi yüklenemedi. "
+                + "Sahne adını ve Build Profiles listesini kontrol et.",
+                this
+            );
+
+            yield break;
+        }
+
+        while (!loadOperation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeToBlack()
     {
         if (deathScreenCanvasGroup == null)
         {
             Debug.LogError(
-                "RocketDeathController: Death Screen Canvas Group atanmamış.",
+                "RocketDeathController: "
+                + "Death Screen Canvas Group atanmamış.",
                 this
             );
 
@@ -74,17 +196,18 @@ public class RocketDeathController : MonoBehaviour
 
         deathScreenCanvasGroup.gameObject.SetActive(true);
 
-        // Fade sırasında oyuncu arka taraftaki UI ile etkileşemesin.
-        deathScreenCanvasGroup.blocksRaycasts = true;
         deathScreenCanvasGroup.interactable = false;
+        deathScreenCanvasGroup.blocksRaycasts = true;
+
+        float startingAlpha =
+            deathScreenCanvasGroup.alpha;
 
         float elapsedTime = 0f;
-        float startingAlpha = deathScreenCanvasGroup.alpha;
 
         while (elapsedTime < fadeDuration)
         {
             // Time.timeScale sıfır olduğu için
-            // Time.deltaTime yerine unscaledDeltaTime kullanıyoruz.
+            // unscaledDeltaTime kullanıyoruz.
             elapsedTime += Time.unscaledDeltaTime;
 
             float progress = Mathf.Clamp01(
@@ -101,8 +224,6 @@ public class RocketDeathController : MonoBehaviour
         }
 
         deathScreenCanvasGroup.alpha = 1f;
-        deathScreenCanvasGroup.interactable = true;
-        deathScreenCanvasGroup.blocksRaycasts = true;
     }
 
     public void RestartLevel()
@@ -114,10 +235,10 @@ public class RocketDeathController : MonoBehaviour
 
         isRestarting = true;
 
-        // Yeni yüklenen sahne donmuş başlamasın.
         Time.timeScale = 1f;
 
-        Scene currentScene = SceneManager.GetActiveScene();
+        Scene currentScene =
+            SceneManager.GetActiveScene();
 
         SceneManager.LoadScene(
             currentScene.buildIndex,
@@ -127,15 +248,17 @@ public class RocketDeathController : MonoBehaviour
 
     private void HideDeathScreenImmediately()
     {
-        if (deathScreenCanvasGroup == null)
+        if (deathScreenCanvasGroup != null)
         {
-            return;
+            deathScreenCanvasGroup.gameObject.SetActive(true);
+            deathScreenCanvasGroup.alpha = 0f;
+            deathScreenCanvasGroup.interactable = false;
+            deathScreenCanvasGroup.blocksRaycasts = false;
         }
 
-        // Nesne aktif kalacak ama görünmez ve tıklanamaz olacak.
-        deathScreenCanvasGroup.gameObject.SetActive(true);
-        deathScreenCanvasGroup.alpha = 0f;
-        deathScreenCanvasGroup.interactable = false;
-        deathScreenCanvasGroup.blocksRaycasts = false;
+        if (retryContentRoot != null)
+        {
+            retryContentRoot.SetActive(false);
+        }
     }
 }

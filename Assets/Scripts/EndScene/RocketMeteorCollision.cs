@@ -15,7 +15,8 @@ public class RocketMeteorCollision : MonoBehaviour
         if (deathController == null)
         {
             Debug.LogError(
-                "RocketMeteorCollision: RocketDeathController atanmamış.",
+                "RocketMeteorCollision: "
+                + "RocketDeathController atanmamış.",
                 this
             );
 
@@ -30,21 +31,30 @@ public class RocketMeteorCollision : MonoBehaviour
             return;
         }
 
-        // Çarpılan nesnenin kendisinde veya parent nesnesinde
-        // MeteorMover olup olmadığını kontrol eder.
-        MeteorMover meteor =
-            other.GetComponentInParent<MeteorMover>();
+        RocketKiller killer =
+            other.GetComponentInParent<RocketKiller>();
 
-        if (meteor == null)
+        if (killer == null)
         {
             return;
         }
 
         collisionHandled = true;
 
-        // Çarpılan meteoru hemen durdur.
-        meteor.SetMovementEnabled(false);
+        FinalHazard finalHazard =
+            other.GetComponentInParent<FinalHazard>();
 
-        deathController.KillRocket();
+        if (finalHazard != null)
+        {
+            // Diş yağmurundaki ölüm:
+            // siyah ekran ve StoryboardScene.
+            deathController.KillRocketAndLoadFinalScene();
+        }
+        else
+        {
+            // Normal meteor ölümü:
+            // ölüm ekranı ve Tekrar Oyna.
+            deathController.KillRocket();
+        }
     }
 }

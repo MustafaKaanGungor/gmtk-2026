@@ -231,17 +231,21 @@ public class MeteorSpawner : MonoBehaviour
             }
     
             if (remainingWaveCount <= finalTriggerCount)
-            {
-                if (finalTriggerDelay > 0f)
-                {
-                    yield return new WaitForSeconds(
-                        finalTriggerDelay
-                    );
-                }
-    
-                TriggerFinalCountdown();
-                yield break;
-            }
+{
+    // Ekranda kalan meteorları temizle.
+    ClearSpawnedMeteors();
+
+    // Bu süre boyunca ekranda hiçbir tehlike görünmez.
+    if (finalTriggerDelay > 0f)
+    {
+        yield return new WaitForSeconds(
+            finalTriggerDelay
+        );
+    }
+
+    TriggerFinalCountdown();
+    yield break;
+}
     
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -411,6 +415,19 @@ public class MeteorSpawner : MonoBehaviour
         }
 
         spawnCoroutine = StartCoroutine(SpawnLoop());
+    }
+
+    public void ClearSpawnedMeteors()
+    {
+        if (meteorParent == null)
+        {
+            return;
+        }
+
+        for (int i = meteorParent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(meteorParent.GetChild(i).gameObject);
+        }
     }
 
     public void StopSpawning()
