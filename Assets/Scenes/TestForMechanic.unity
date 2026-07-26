@@ -513,7 +513,7 @@ Transform:
   m_GameObject: {fileID: 217170401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1499997, y: 0.9399998, z: -10}
+  m_LocalPosition: {x: 1.1499996, y: 0.9399998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -625,22 +625,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacde922bdefbba4fafe178cd069f730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorZone
-  door: {fileID: 1990595302}
-  slideDoor: 1
-  closedLocalPosition: {x: 0, y: 1, z: 0}
-  openLocalPosition: {x: -2, y: 1, z: 0}
-  slideSpeed: 8
-  entryTrigger: {fileID: 279688668}
+  phases: []
+  randomOrder: 1
+  phaseDurationRange: {x: 2, y: 4}
+  zoneVisual: {fileID: 0}
   onlyThrownBags: 1
-  acceptedBagType: 0
   requiredCount: 3
   destroyBagOnAccept: 1
-  teleportWrongBags: 1
-  openDurationRange: {x: 2, y: 4}
-  closedDurationRange: {x: 1.5, y: 3}
-  startOpen: 1
-  randomizeStart: 1
-  startDelay: 0
+  bounceWrongBags: 1
+  bounceMultiplier: 1
   printMessages: 0
 --- !u!61 &279688668
 BoxCollider2D:
@@ -2337,7 +2330,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 2b7240614e83d3d9b9efda98ec498d6a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3154,7 +3147,7 @@ Transform:
   m_GameObject: {fileID: 1177961967}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1499997, y: 0.9399998, z: -10}
+  m_LocalPosition: {x: 1.1499996, y: 0.9399998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3363,7 +3356,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -3537,22 +3530,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacde922bdefbba4fafe178cd069f730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorZone
-  door: {fileID: 634034742}
-  slideDoor: 1
-  closedLocalPosition: {x: 0, y: 1, z: 0}
-  openLocalPosition: {x: -2, y: 1, z: 0}
-  slideSpeed: 8
-  entryTrigger: {fileID: 1446126859}
+  phases: []
+  randomOrder: 1
+  phaseDurationRange: {x: 2, y: 4}
+  zoneVisual: {fileID: 0}
   onlyThrownBags: 1
-  acceptedBagType: 1
   requiredCount: 3
   destroyBagOnAccept: 1
-  teleportWrongBags: 1
-  openDurationRange: {x: 2, y: 4}
-  closedDurationRange: {x: 1.5, y: 3}
-  startOpen: 1
-  randomizeStart: 1
-  startDelay: 0
+  bounceWrongBags: 1
+  bounceMultiplier: 1
   printMessages: 0
 --- !u!61 &1446126859
 BoxCollider2D:
@@ -3646,22 +3632,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacde922bdefbba4fafe178cd069f730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorZone
-  door: {fileID: 1932232112}
-  slideDoor: 1
-  closedLocalPosition: {x: 0.39, y: 1, z: 0}
-  openLocalPosition: {x: -1, y: 1, z: 0}
-  slideSpeed: 8
-  entryTrigger: {fileID: 1487023873}
+  phases: []
+  randomOrder: 1
+  phaseDurationRange: {x: 2, y: 4}
+  zoneVisual: {fileID: 0}
   onlyThrownBags: 1
-  acceptedBagType: 2
   requiredCount: 3
   destroyBagOnAccept: 1
-  teleportWrongBags: 1
-  openDurationRange: {x: 2, y: 4}
-  closedDurationRange: {x: 1.5, y: 3}
-  startOpen: 1
-  randomizeStart: 1
-  startDelay: 0
+  bounceWrongBags: 1
+  bounceMultiplier: 1
   printMessages: 0
 --- !u!61 &1487023873
 BoxCollider2D:
@@ -3855,6 +3834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1665053083}
   - component: {fileID: 1665053084}
+  - component: {fileID: 1665053085}
   m_Layer: 0
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -3871,9 +3851,9 @@ Transform:
   m_GameObject: {fileID: 1665053082}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.209, z: 0}
-  m_LocalScale: {x: 0.3798, y: 0.3798, z: 0.3798}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.4, y: 0.015, z: 0}
+  m_LocalScale: {x: 0.48, y: 0.48, z: 0.48}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1904870363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3924,18 +3904,40 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 50
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4333292541968214507, guid: 59264c7f38bd1fc328d02478ef583a30, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17452de84c1157444a24b63d8804b1fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.29, y: 4.83}
+  m_Size: {x: 9.5, y: 5.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &1665053085
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665053082}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d902235c64449a8a88e09668a281ded1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1678367868
 GameObject:
   m_ObjectHideFlags: 0
@@ -4380,6 +4382,7 @@ GameObject:
   - component: {fileID: 1904870367}
   - component: {fileID: 1904870366}
   - component: {fileID: 1904870365}
+  - component: {fileID: 1904870369}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4445,6 +4448,7 @@ MonoBehaviour:
   rightPowerPoint: {fileID: 536828271}
   gameplayCamera: {fileID: 217170403}
   pickupRadius: 1.5
+  catchInputBufferDuration: 0.12
   bagLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4549,6 +4553,56 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1904870369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904870362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15de4075621c63d4aa04368a069a5e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 1665053085}
+  movement: {fileID: 1904870366}
+  bagThrower: {fileID: 1904870365}
+  body: {fileID: 1904870368}
+  moveSpeedThreshold: 0.1
+  stateBindings:
+  - state: 0
+    animatorStateName: Idle
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 1
+    animatorStateName: WalkLeft
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 2
+    animatorStateName: WalkRight
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 3
+    animatorStateName: Jump
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 4
+    animatorStateName: HoldLeft
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 5
+    animatorStateName: HoldRight
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 6
+    animatorStateName: Climb
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 7
+    animatorStateName: Pump
+    enterSoundSignal: 
+    exitSoundSignal: 
 --- !u!1 &1932232112
 GameObject:
   m_ObjectHideFlags: 0
