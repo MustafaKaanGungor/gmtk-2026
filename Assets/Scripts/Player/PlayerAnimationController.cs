@@ -232,10 +232,16 @@ public class PlayerAnimationController : MonoBehaviour
 
         for (int index = 0; index < states.Length; index++)
         {
+            // Pump state'i "Anxious" animasyonunu oynatir.
+            string animName =
+                states[index] == AnimationState.Pump
+                    ? "Anxious"
+                    : states[index].ToString();
+
             stateBindings[index] = new StateBinding
             {
                 state = states[index],
-                animatorStateName = states[index].ToString()
+                animatorStateName = animName
             };
         }
     }

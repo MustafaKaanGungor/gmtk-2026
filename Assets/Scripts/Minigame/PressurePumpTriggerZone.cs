@@ -17,6 +17,10 @@ public class PressurePumpTriggerZone : MonoBehaviour
     [Tooltip("Opsiyonel. Basari sistemini sifirlamak icin.")]
     [SerializeField] private PressurePumpMinigame minigame;
 
+    [Tooltip("Opsiyonel. Atanmazsa alana giren oyuncudan otomatik alinir. " +
+        "Pompalarken pump (anxious) animasyonunu tetiklemek icin.")]
+    [SerializeField] private PlayerAnimationController playerAnimation;
+
     [Header("Settings")]
     [Tooltip("Alana her girildiginde basinci ve minigame'i sifirla.")]
     [SerializeField] private bool resetOnEnter = true;
@@ -63,6 +67,13 @@ public class PressurePumpTriggerZone : MonoBehaviour
         if (!IsPlayer(other))
         {
             return;
+        }
+
+        // Atanmamissa giren oyuncudan animasyon kontrolcusunu al.
+        if (playerAnimation == null)
+        {
+            playerAnimation =
+                other.GetComponentInParent<PlayerAnimationController>();
         }
 
         OpenMinigame();
@@ -123,6 +134,12 @@ public class PressurePumpTriggerZone : MonoBehaviour
             pump.StartPumping();
         }
 
+        // Pompalarken anxious (pump) animasyonunu ac.
+        if (playerAnimation != null)
+        {
+            playerAnimation.SetPumping(true);
+        }
+
         if (printMessages)
         {
             Debug.Log(
@@ -139,6 +156,11 @@ public class PressurePumpTriggerZone : MonoBehaviour
         if (pump != null)
         {
             pump.StopPumping();
+        }
+
+        if (playerAnimation != null)
+        {
+            playerAnimation.SetPumping(false);
         }
 
         if (minigameRoot != null)

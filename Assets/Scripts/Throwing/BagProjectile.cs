@@ -92,6 +92,16 @@ public class BagProjectile : MonoBehaviour
     }
 
     /// <summary>
+    /// Bavulu belirtilen konuma isinlar ve hareketini durdurur.
+    /// </summary>
+    public void TeleportTo(Vector3 position)
+    {
+        ClearMotion();
+
+        transform.position = position;
+    }
+
+    /// <summary>
     /// Çantanın bütün hareketini durdurur.
     /// </summary>
     public void StopMotion()

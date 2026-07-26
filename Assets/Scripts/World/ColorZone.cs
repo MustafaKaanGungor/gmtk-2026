@@ -39,10 +39,6 @@ public class ColorZone : MonoBehaviour
     [Tooltip("Aktif renge gore boyanacak gorsel.")]
     [SerializeField] private SpriteRenderer zoneVisual;
 
-    [Header("Bag Detection")]
-    [Tooltip("Sadece firlatilmis (IsThrown) bavullar dikkate alinsin mi.")]
-    [SerializeField] private bool onlyThrownBags = true;
-
     [Header("Correct Bag")]
     [Min(1)]
     [Tooltip("Gorevin tamamlanmasi icin toplam kac dogru bavul gerekli.")]
@@ -53,12 +49,11 @@ public class ColorZone : MonoBehaviour
     [SerializeField] private bool destroyBagOnAccept = true;
 
     [Header("Wrong Bag")]
-    [Tooltip("Yanlis renkte bavul girince hiz vektoru ters cevrilip geri firlatilsin mi.")]
-    [SerializeField] private bool bounceWrongBags = true;
+    [Tooltip("Yanlis renkte bavul girince belirtilen noktaya isinlansin mi.")]
+    [SerializeField] private bool teleportWrongBags = true;
 
-    [Min(0f)]
-    [Tooltip("Geri firlatma hiz carpani. 1 = ayni hizla geri, >1 daha sert.")]
-    [SerializeField] private float bounceMultiplier = 1f;
+    [Tooltip("Yanlis bavulun isinlanacagi hedef nokta.")]
+    [SerializeField] private Transform wrongBagReturnPoint;
 
     [Header("Debug")]
     [SerializeField] private bool printMessages = false;
@@ -157,7 +152,16 @@ public class ColorZone : MonoBehaviour
 
         if (zoneVisual != null)
         {
-            zoneVisual.color = phase.displayColor;
+            Color color = phase.displayColor;
+
+            // Inspector'da listeye eklenen elemanlarda alpha 0 kalabilir
+            // (Color.white varsayilani uygulanmaz). Saydam kalmasin diye duzelt.
+            if (color.a <= 0f)
+            {
+                color.a = 1f;
+            }
+
+            zoneVisual.color = color;
         }
 
         phaseTimer = PickDuration();
@@ -190,13 +194,14 @@ public class ColorZone : MonoBehaviour
             return;
         }
 
-        if (onlyThrownBags && !bag.IsThrown)
+        GroundBagPickup pickup =
+            bag.GetComponent<GroundBagPickup>();
+
+        // Elde tutulan bavulu isleme (oyuncunun elinden kapmasin).
+        if (pickup != null && pickup.IsHeld)
         {
             return;
         }
-
-        GroundBagPickup pickup =
-            bag.GetComponent<GroundBagPickup>();
 
         bool isCorrect =
             pickup != null && pickup.Type == CurrentAcceptedType;
@@ -211,15 +216,15 @@ public class ColorZone : MonoBehaviour
             return;
         }
 
-        // Yanlis renk: geldigi yone geri firlat.
-        if (bounceWrongBags)
+        // Yanlis renk: belirlenen noktaya isinla.
+        if (teleportWrongBags && wrongBagReturnPoint != null)
         {
-            bag.ReverseVelocity(bounceMultiplier);
+            bag.TeleportTo(wrongBagReturnPoint.position);
 
             if (printMessages)
             {
                 Debug.Log(
-                    "ColorZone: yanlis bavul geri firlatildi.",
+                    "ColorZone: yanlis bavul isinlandi.",
                     this
                 );
             }
