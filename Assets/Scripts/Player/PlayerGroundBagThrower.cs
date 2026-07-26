@@ -45,6 +45,13 @@ public class PlayerGroundBagThrower : MonoBehaviour
     [SerializeField] private float pickupRadius = 1.5f;
 
     [Tooltip(
+        "Mouse'un bir bavulu hedeflemesi için collider'a en fazla " +
+        "ne kadar yakın olması gerektiği."
+    )]
+    [Min(0.05f)]
+    [SerializeField] private float mouseSelectionRadius = 0.75f;
+
+    [Tooltip(
         "Oyuncu alma tuşuna bavul menzile girmeden hemen önce basarsa " +
         "girdiyi bu süre boyunca saklar."
     )]
@@ -75,6 +82,8 @@ public class PlayerGroundBagThrower : MonoBehaviour
     private GroundBagPickup nearbyBag;
     private GroundBagPickup heldBag;
     private float catchInputBufferTimer;
+    private Vector2 bufferedPointerWorldPosition;
+    private bool hasBufferedPointerPosition;
 
     public GroundBagPickup NearbyBag => nearbyBag;
     public GroundBagPickup HeldBag => heldBag;
@@ -166,7 +175,7 @@ public class PlayerGroundBagThrower : MonoBehaviour
         if (heldBag != null)
         {
             nearbyBag = null;
-            catchInputBufferTimer = 0f;
+            ClearCatchInputBuffer();
 
             if (actionPressed)
             {
@@ -176,34 +185,57 @@ public class PlayerGroundBagThrower : MonoBehaviour
             return;
         }
 
-        FindNearestBag();
-
         if (actionPressed)
         {
+            hasBufferedPointerPosition =
+                TryGetPointerWorldPosition(
+                    out bufferedPointerWorldPosition
+                );
+
             catchInputBufferTimer =
                 catchInputBufferDuration;
 
+            FindBestBagForPointer(
+                bufferedPointerWorldPosition,
+                hasBufferedPointerPosition
+            );
+
             if (TryPickUpNearbyBag())
             {
-                catchInputBufferTimer = 0f;
+                ClearCatchInputBuffer();
                 return;
             }
         }
 
-        if (catchInputBufferTimer <= 0f)
+        if (catchInputBufferTimer > 0f)
         {
+            FindBestBagForPointer(
+                bufferedPointerWorldPosition,
+                hasBufferedPointerPosition
+            );
+
+            catchInputBufferTimer = Mathf.Max(
+                0f,
+                catchInputBufferTimer - Time.deltaTime
+            );
+
+            if (TryPickUpNearbyBag())
+            {
+                ClearCatchInputBuffer();
+            }
+
             return;
         }
 
-        catchInputBufferTimer = Mathf.Max(
-            0f,
-            catchInputBufferTimer - Time.deltaTime
-        );
+        bool hasLivePointerPosition =
+            TryGetPointerWorldPosition(
+                out Vector2 livePointerWorldPosition
+            );
 
-        if (TryPickUpNearbyBag())
-        {
-            catchInputBufferTimer = 0f;
-        }
+        FindBestBagForPointer(
+            livePointerWorldPosition,
+            hasLivePointerPosition
+        );
     }
 
     private void LateUpdate()
@@ -213,7 +245,9 @@ public class PlayerGroundBagThrower : MonoBehaviour
         RefreshDirectionObjects();
     }
 
-    private void FindNearestBag()
+    private void FindBestBagForPointer(
+        Vector2 pointerWorldPosition,
+        bool hasPointerPosition)
     {
         Transform holdPoint = CurrentHoldPoint;
 
@@ -230,8 +264,14 @@ public class PlayerGroundBagThrower : MonoBehaviour
         );
 
         GroundBagPickup closestBag = null;
-        float closestDistanceSquared =
+        float bestPointerDistanceSquared =
             float.PositiveInfinity;
+        float bestPlayerDistanceSquared =
+            float.PositiveInfinity;
+
+        float maximumPointerDistanceSquared =
+            mouseSelectionRadius *
+            mouseSelectionRadius;
 
         for (int index = 0; index < resultCount; index++)
         {
@@ -250,22 +290,75 @@ public class PlayerGroundBagThrower : MonoBehaviour
                 continue;
             }
 
-            Vector2 closestPoint =
+            Vector2 closestPointToPlayer =
                 result.ClosestPoint(searchPosition);
 
-            float distanceSquared =
-                (closestPoint - searchPosition).sqrMagnitude;
+            float playerDistanceSquared =
+                (
+                    closestPointToPlayer -
+                    searchPosition
+                ).sqrMagnitude;
 
-            if (distanceSquared >= closestDistanceSquared)
+            float pointerDistanceSquared = 0f;
+
+            if (hasPointerPosition)
+            {
+                Vector2 closestPointToPointer =
+                    result.ClosestPoint(
+                        pointerWorldPosition
+                    );
+
+                pointerDistanceSquared =
+                    (
+                        closestPointToPointer -
+                        pointerWorldPosition
+                    ).sqrMagnitude;
+
+                if (
+                    pointerDistanceSquared >
+                    maximumPointerDistanceSquared)
+                {
+                    continue;
+                }
+            }
+
+            bool isBetterPointerMatch =
+                pointerDistanceSquared <
+                bestPointerDistanceSquared;
+
+            bool isSamePointerDistance =
+                Mathf.Approximately(
+                    pointerDistanceSquared,
+                    bestPointerDistanceSquared
+                );
+
+            bool isBetterPlayerMatch =
+                playerDistanceSquared <
+                bestPlayerDistanceSquared;
+
+            if (
+                !isBetterPointerMatch &&
+                !(isSamePointerDistance &&
+                    isBetterPlayerMatch))
             {
                 continue;
             }
 
             closestBag = candidate;
-            closestDistanceSquared = distanceSquared;
+            bestPointerDistanceSquared =
+                pointerDistanceSquared;
+            bestPlayerDistanceSquared =
+                playerDistanceSquared;
         }
 
         nearbyBag = closestBag;
+    }
+
+    private void ClearCatchInputBuffer()
+    {
+        catchInputBufferTimer = 0f;
+        hasBufferedPointerPosition = false;
+        bufferedPointerWorldPosition = Vector2.zero;
     }
 
     private bool TryPickUpNearbyBag()
@@ -368,18 +461,12 @@ public class PlayerGroundBagThrower : MonoBehaviour
 
         if (
             aimAtMouse &&
-            gameplayCamera != null &&
-            TryGetPointerPosition(
-                out Vector2 pointerScreenPosition)
+            TryGetPointerWorldPosition(
+                out Vector2 pointerWorldPosition)
         )
         {
-            Vector3 pointerWorldPosition =
-                gameplayCamera.ScreenToWorldPoint(
-                    pointerScreenPosition
-                );
-
             Vector2 mouseDirection =
-                (Vector2)pointerWorldPosition -
+                pointerWorldPosition -
                 throwOrigin;
 
             if (mouseDirection.sqrMagnitude > 0.001f)
@@ -530,6 +617,26 @@ public class PlayerGroundBagThrower : MonoBehaviour
         pointerPosition = Input.mousePosition;
         return true;
 #endif
+    }
+
+    private bool TryGetPointerWorldPosition(
+        out Vector2 pointerWorldPosition)
+    {
+        if (
+            gameplayCamera == null ||
+            !TryGetPointerPosition(
+                out Vector2 pointerScreenPosition))
+        {
+            pointerWorldPosition = Vector2.zero;
+            return false;
+        }
+
+        pointerWorldPosition =
+            gameplayCamera.ScreenToWorldPoint(
+                pointerScreenPosition
+            );
+
+        return true;
     }
 
     private void OnDrawGizmosSelected()
