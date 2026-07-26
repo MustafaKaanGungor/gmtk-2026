@@ -380,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GroundBagPickup
   bagType: 1
   groundGravityScale: 1.5
+  pickupCooldownAfterThrow: 0.2
   minimumFlightTime: 0.35
   stoppedSpeedThreshold: 0.35
   stoppedDurationRequired: 0.5

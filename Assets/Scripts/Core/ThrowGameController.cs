@@ -118,26 +118,13 @@ public class ThrowGameController : MonoBehaviour
 
         currentState = GameState.Playing;
 
-        gameUIController.SetInstruction(
-            "Approach a bag. Press E or left-click to pick it up; " +
-            "carry it to the rocket or press again to throw it."
-        );
     }
 
     private bool ReferencesAreValid()
     {
         bool isValid = true;
 
-        if (playerBagThrower == null)
-        {
-            Debug.LogError(
-                "ThrowGameController: " +
-                "PlayerGroundBagThrower atanmamış.",
-                this
-            );
 
-            isValid = false;
-        }
 
         if (groundBagSpawner == null)
         {
@@ -172,16 +159,7 @@ public class ThrowGameController : MonoBehaviour
             isValid = false;
         }
 
-        if (gameUIController == null)
-        {
-            Debug.LogError(
-                "ThrowGameController: " +
-                "GameUIController atanmamış.",
-                this
-            );
-
-            isValid = false;
-        }
+   
 
         return isValid;
     }

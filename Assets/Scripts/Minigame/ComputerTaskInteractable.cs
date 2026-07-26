@@ -17,6 +17,13 @@ public class ComputerTaskInteractable : MonoBehaviour
     [SerializeField] private bool clickRequiresPlayerInRange = true;
     [SerializeField] private bool disableAfterCompletion = true;
 
+    [Header("Task Integration")]
+    [Tooltip("Opsiyonel. Atanirsa gorev tamamlaninca TaskManager'a bildirilir.")]
+    [SerializeField] private TaskManager taskManager;
+
+    [Tooltip("TaskManager'da tamamlanacak gorevin kimligi.")]
+    [SerializeField] private string taskId = "computer_task";
+
     [Header("Debug")]
     [SerializeField] private bool showDebugLogs = true;
 
@@ -276,6 +283,12 @@ public class ComputerTaskInteractable : MonoBehaviour
         completed = true;
         RefreshHighlightState();
         RefreshVisuals();
+
+        if (taskManager != null)
+        {
+            // CompleteTask zaten tamamlanmis gorevi tekrar tetiklemez.
+            taskManager.CompleteTask(taskId);
+        }
     }
 
     public void ResetTask()

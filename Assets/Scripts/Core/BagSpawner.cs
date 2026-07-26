@@ -27,13 +27,6 @@ public class BagSpawner : MonoBehaviour
 
     private void Awake()
     {
-        if (bagThrower == null)
-        {
-            Debug.LogError(
-                "BagSpawner: BagThrower atanmamış.",
-                this
-            );
-        }
     }
 
     /// <summary>

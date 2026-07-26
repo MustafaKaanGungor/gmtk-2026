@@ -25,6 +25,13 @@ public class VentMinigameInteractable : MonoBehaviour
     [Tooltip("Player üzerindeki Rigidbody2D bileşenini buraya sürükle.")]
     [SerializeField] private Rigidbody2D playerRigidbody;
 
+    [Header("Task Integration")]
+    [Tooltip("Opsiyonel. Atanirsa gorev tamamlaninca TaskManager'a bildirilir.")]
+    [SerializeField] private TaskManager taskManager;
+
+    [Tooltip("TaskManager'da tamamlanacak gorevin kimligi.")]
+    [SerializeField] private string taskId = "vent_task";
+
     [Header("Input")]
     [SerializeField] private KeyCode interactionKey = KeyCode.E;
     [SerializeField] private KeyCode closeKey = KeyCode.Escape;
@@ -241,6 +248,12 @@ public class VentMinigameInteractable : MonoBehaviour
         }
 
         SetHighlight(!minigameOpen);
+
+        if (taskManager != null)
+        {
+            // CompleteTask zaten tamamlanmis gorevi tekrar tetiklemez.
+            taskManager.CompleteTask(taskId);
+        }
     }
 
     private void ResolveHighlightPulse()

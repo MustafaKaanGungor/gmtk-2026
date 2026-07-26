@@ -26,6 +26,17 @@ public class GroundBagSpawner : MonoBehaviour
     [SerializeField]
     private bool spawnOnStart = true;
 
+    [Header("Size")]
+    [Tooltip("Kucuk (yari boyut) bavul spawnlama olasiligi. 0 = hic, 1 = hepsi.")]
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float smallBagChance = 0.5f;
+
+    [Tooltip("Kucuk bavulun olcek carpani. 0.5 = yari yariya kuculur.")]
+    [Range(0.05f, 1f)]
+    [SerializeField]
+    private float smallBagScale = 0.5f;
+
     private readonly List<GroundBagPickup> spawnedBags =
         new List<GroundBagPickup>();
 
@@ -100,6 +111,12 @@ public class GroundBagSpawner : MonoBehaviour
                     position,
                     rotation
                 );
+
+            // Olasiliga gore bavulu yari (kucuk) boyutta spawnla.
+            if (Random.value < smallBagChance)
+            {
+                spawnedBag.transform.localScale *= smallBagScale;
+            }
 
             GroundBagPickup pickup =
                 spawnedBag.GetComponent<GroundBagPickup>();

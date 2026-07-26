@@ -16,6 +16,11 @@ public class Endgamecontroller : MonoBehaviour
         
     }
     
+    public void StartGame()
+    {
+        SceneManager.LoadScene("StartScene1");
+    }
+    
     public void QuitGame()
     {
         Application.Quit();
