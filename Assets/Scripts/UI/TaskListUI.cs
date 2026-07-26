@@ -20,7 +20,7 @@ public class TaskListUI : MonoBehaviour,
 
     [Header("Header")]
     [Tooltip("Listenin ustundeki baslik. Bos birakilirsa gosterilmez.")]
-    [SerializeField] private string header = "Gorevler";
+    [SerializeField] private string header = "Tasks";
 
     [Header("Task Prefixes")]
     [Tooltip("Tamamlanan gorevin basina gelen isaret.")]
@@ -53,6 +53,11 @@ public class TaskListUI : MonoBehaviour,
 
     private void Awake()
     {
+        if (header == "Gorevler" || header == "Görevler")
+        {
+            header = "Tasks";
+        }
+
         canvasGroup = GetComponent<CanvasGroup>();
         targetAlpha = idleAlpha;
         canvasGroup.alpha = idleAlpha;

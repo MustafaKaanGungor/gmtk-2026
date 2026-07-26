@@ -157,7 +157,7 @@ public class ArrowSequenceMinigame : MonoBehaviour
 
         if (timeRemaining <= 0f)
         {
-            FailCurrentRound("SÜRE DOLDU!");
+            FailCurrentRound("TIME'S UP!");
             return;
         }
 
@@ -268,7 +268,7 @@ public class ArrowSequenceMinigame : MonoBehaviour
         if (roundText != null)
         {
             roundText.text =
-                "AŞAMA " +
+                "STAGE " +
                 (currentRoundIndex + 1) +
                 " / " +
                 rounds.Count;
@@ -343,7 +343,7 @@ public class ArrowSequenceMinigame : MonoBehaviour
         }
 
         RefreshSequenceText(currentSequenceIndex);
-        FailCurrentRound("YANLIŞ TUŞ!");
+        FailCurrentRound("WRONG KEY!");
     }
 
     private void FailCurrentRound(string message)
@@ -395,7 +395,7 @@ public class ArrowSequenceMinigame : MonoBehaviour
     {
         if (feedbackText != null)
         {
-            feedbackText.text = "AŞAMA TAMAMLANDI!";
+            feedbackText.text = "STAGE COMPLETE!";
         }
 
         yield return new WaitForSecondsRealtime(
@@ -426,7 +426,7 @@ public class ArrowSequenceMinigame : MonoBehaviour
 
         if (feedbackText != null)
         {
-            feedbackText.text = "GÖREV TAMAMLANDI!";
+            feedbackText.text = "TASK COMPLETE!";
         }
 
         onMinigameCompleted?.Invoke();

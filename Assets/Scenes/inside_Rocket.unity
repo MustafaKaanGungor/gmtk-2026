@@ -983,7 +983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Sol fare tu\u015Funa bas\u0131l\u0131 tutarak filtreyi temizle"
+  m_text: Hold the left mouse button and move the brush to clean the filter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1470,6 +1470,97 @@ PolygonCollider2D:
       - {x: -2.6075273, y: -3.4781554}
       - {x: -2.5839243, y: -0.04277259}
   m_UseDelaunayMesh: 1
+--- !u!1 &572548652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 572548653}
+  - component: {fileID: 572548654}
+  m_Layer: 0
+  m_Name: Square
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &572548653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572548652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 49.5, y: 49.5, z: 49.5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1715654666}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &572548654
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572548652}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -50
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1 &618420184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,6 +1755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758077468}
   - component: {fileID: 758077467}
+  - component: {fileID: 758077469}
   m_Layer: 0
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -1745,6 +1837,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1317266864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &758077469
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758077466}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d902235c64449a8a88e09668a281ded1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &802054263
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,6 +2666,7 @@ GameObject:
   - component: {fileID: 1317266865}
   - component: {fileID: 1317266867}
   - component: {fileID: 1317266866}
+  - component: {fileID: 1317266868}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2612,6 +2727,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   groundCheckDistance: 0.12
+  maximumGroundAngle: 50
   characterVisual: {fileID: 758077467}
   initialFacingDirection: -1
 --- !u!61 &1317266862
@@ -2752,6 +2868,48 @@ MonoBehaviour:
   upperFloorForeground: {fileID: 203960772}
   playerSortingGroup: {fileID: 1317266866}
   playerSpriteRenderer: {fileID: 758077467}
+--- !u!114 &1317266868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317266859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5879838cb3ea17b2a3cc5505e263e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 758077469}
+  movement: {fileID: 1317266861}
+  bagThrower: {fileID: 1317266860}
+  body: {fileID: 1317266863}
+  moveSpeedThreshold: 0.1
+  stateBindings:
+  - state: 0
+    animatorStateName: Idle
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 1
+    animatorStateName: WalkLeft
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 2
+    animatorStateName: WalkRight
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 3
+    animatorStateName: Jump
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 6
+    animatorStateName: Climb
+    enterSoundSignal: 
+    exitSoundSignal: 
+  - state: 7
+    animatorStateName: Anxious
+    enterSoundSignal: 
+    exitSoundSignal: 
 --- !u!1 &1350915052
 GameObject:
   m_ObjectHideFlags: 0
@@ -4152,6 +4310,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1748056263}
+  - {fileID: 572548653}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1748056262

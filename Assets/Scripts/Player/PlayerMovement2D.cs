@@ -31,6 +31,12 @@ public class PlayerMovement2D : MonoBehaviour
     [Min(0.01f)]
     [SerializeField] private float groundCheckDistance = 0.12f;
 
+    [Range(0f, 89f)]
+    [Tooltip(
+        "Bu açıdan daha dik yüzeyler duvar kabul edilir ve zıplama hakkı vermez."
+    )]
+    [SerializeField] private float maximumGroundAngle = 50f;
+
     [Header("Visual")]
     [SerializeField] private SpriteRenderer characterVisual;
 
@@ -138,6 +144,9 @@ public class PlayerMovement2D : MonoBehaviour
             return false;
         }
 
+        float minimumGroundNormalY =
+            Mathf.Cos(maximumGroundAngle * Mathf.Deg2Rad);
+
         int hitCount = characterCollider.Cast(
             Vector2.down,
             groundFilter,
@@ -165,6 +174,11 @@ public class PlayerMovement2D : MonoBehaviour
             hitTransform.IsChildOf(transform);
 
             if (belongsToPlayer)
+            {
+                continue;
+            }
+
+            if (groundHits[index].normal.y < minimumGroundNormalY)
             {
                 continue;
             }

@@ -92,10 +92,10 @@ public class ScoreController : MonoBehaviour
         }
 
         scoreText.text =
-            "Puan: " + TotalScore +
-            "\nBaşarılı: " + SuccessfulBagCount +
-            "\nKaçan: " + MissedBagCount +
-            "\nSeri: " + CurrentStreak +
-            "\nKalan Çanta: " + RemainingBagCount;
+            "Score: " + TotalScore +
+            "\nSuccessful: " + SuccessfulBagCount +
+            "\nMissed: " + MissedBagCount +
+            "\nStreak: " + CurrentStreak +
+            "\nBags Remaining: " + RemainingBagCount;
     }
 }

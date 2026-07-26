@@ -59,7 +59,7 @@ public class GameUIController : MonoBehaviour
         );
 
         SetInstruction(
-            "Yeni oyun hazırlanıyor..."
+            "Preparing a new game..."
         );
 
         RefreshScoreText();
@@ -107,7 +107,7 @@ public class GameUIController : MonoBehaviour
         );
 
         SetInstruction(
-            "Başarılı! Çanta rokete ulaştı."
+            "Success! The bag reached the rocket."
         );
 
         RefreshScoreText();
@@ -126,7 +126,7 @@ public class GameUIController : MonoBehaviour
             newRemainingBagCount
         );
 
-        SetInstruction("Atış kaçtı!");
+        SetInstruction("Throw missed!");
 
         RefreshScoreText();
     }
@@ -137,12 +137,12 @@ public class GameUIController : MonoBehaviour
     public void ShowGameOver(int totalBagCount)
     {
         SetInstruction(
-            "Oyun bitti! " +
+            "Game over! " +
             successfulBagCount +
             " / " +
             totalBagCount +
-            " çanta rokete ulaştı. " +
-            "Toplam skor: " +
+            " bags reached the rocket. " +
+            "Total score: " +
             currentScore
         );
 
@@ -157,13 +157,13 @@ public class GameUIController : MonoBehaviour
         }
 
         scoreText.text =
-            "Skor: " +
+            "Score: " +
             currentScore +
-            "\nBaşarılı: " +
+            "\nSuccessful: " +
             successfulBagCount +
-            "\nKaçan: " +
+            "\nMissed: " +
             missedBagCount +
-            "\nKalan Çanta: " +
+            "\nBags Remaining: " +
             remainingBagCount;
     }
 }

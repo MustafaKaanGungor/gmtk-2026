@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]
 public class LevelCompletionController : MonoBehaviour
 {
+    private const string DefaultAllTasksMessage =
+        "All tasks complete!\nProceed to the marked area near the rocket.";
+
     [Header("References")]
     [SerializeField] private TaskManager taskManager;
     [SerializeField] private RocketBoardingZone boardingZone;
@@ -23,7 +26,7 @@ public class LevelCompletionController : MonoBehaviour
     [TextArea]
     [Tooltip("Gorevler bitince ekranda gosterilecek yazi.")]
     [SerializeField] private string allTasksMessage =
-        "Tum gorevler tamamlandi!\nRokete gitmek icin isaretli alana yaklas.";
+        DefaultAllTasksMessage;
 
     [Header("Scene Transition")]
     [Tooltip("Gecilecek 2. sahnenin adi. (Build Settings'e ekli olmali.)")]
@@ -71,6 +74,11 @@ public class LevelCompletionController : MonoBehaviour
 
     private void Awake()
     {
+        if (IsLegacyTurkishMessage(allTasksMessage))
+        {
+            allTasksMessage = DefaultAllTasksMessage;
+        }
+
         // Baslangicta panel kapali, alan pasif.
         if (completionPanel != null)
         {
@@ -81,6 +89,16 @@ public class LevelCompletionController : MonoBehaviour
         {
             boardingZone.Deactivate();
         }
+    }
+
+    private bool IsLegacyTurkishMessage(string message)
+    {
+        return message ==
+            "Tum gorevler tamamlandi!\n" +
+            "Rokete gitmek icin isaretli alana yaklas." ||
+            message ==
+            "Tüm görevler tamamlandı!\n" +
+            "Rokete gitmek için işaretli alana yaklaş.";
     }
 
     private void HandleAllTasksCompleted()

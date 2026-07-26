@@ -119,8 +119,8 @@ public class ThrowGameController : MonoBehaviour
         currentState = GameState.Playing;
 
         gameUIController.SetInstruction(
-            "Bavula yaklaş. E veya sol tık ile al; " +
-            "rokete taşı veya tekrar basıp fırlat."
+            "Approach a bag. Press E or left-click to pick it up; " +
+            "carry it to the rocket or press again to throw it."
         );
     }
 
@@ -205,7 +205,7 @@ public class ThrowGameController : MonoBehaviour
         HandleBagReturnedToGround;
 
         gameUIController.SetInstruction(
-            "Bavul uçuyor..."
+            "Bag in flight..."
         );
     }
 
@@ -244,9 +244,9 @@ public class ThrowGameController : MonoBehaviour
         );
 
         gameUIController.SetInstruction(
-            "Başarılı! +" +
+            "Success! +" +
             earnedScore +
-            " puan."
+            " points."
         );
 
         GameSignals.Raise(GameSignals.BagDelivered);
@@ -314,7 +314,7 @@ public class ThrowGameController : MonoBehaviour
         GameSignals.Raise(GameSignals.BagMissed);
 
         gameUIController.SetInstruction(
-            "Atış kaçtı. Bavulu tekrar alabilirsin."
+            "Missed! You can pick up the bag again."
         );
     }
 
@@ -357,9 +357,9 @@ public class ThrowGameController : MonoBehaviour
         GameSignals.Raise(GameSignals.GameOver);
 
         gameUIController.SetInstruction(
-            "Oyun bitti! Toplam skor: " +
+            "Game over! Total score: " +
             scoreController.TotalScore +
-            ". En yüksek seri: " +
+            ". Highest streak: " +
             scoreController.HighestStreak
         );
 
