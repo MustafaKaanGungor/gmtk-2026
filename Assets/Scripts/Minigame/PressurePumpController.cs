@@ -52,7 +52,7 @@ public class PressurePumpController : MonoBehaviour
 
     [Header("Input")]
     [Tooltip("Eski Input Manager kullanildiginda pompalama tusu.")]
-    [SerializeField] private KeyCode pumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode pumpKey = KeyCode.P;
 
     [Header("Temporary Test")]
     [Tooltip("Simdilik test etmek icin acik. GameController geldiginde kapatacagiz.")]
@@ -73,8 +73,16 @@ public class PressurePumpController : MonoBehaviour
     // Yesil bolgede toplam ne kadar sure kalindi.
     public float TimeInGreenZone { get; private set; }
 
+    #if ENABLE_INPUT_SYSTEM
+    private Key pumpInputKey = Key.Space;
+    #endif
+
     private void Awake()
     {
+        #if ENABLE_INPUT_SYSTEM
+        ResolvePumpKey();
+        #endif
+
         if (pumpIndicator == null)
         {
             Debug.LogError(
@@ -225,13 +233,34 @@ public class PressurePumpController : MonoBehaviour
     private bool PumpPressed()
     {
         #if ENABLE_INPUT_SYSTEM
-        return
-            Keyboard.current != null &&
-            Keyboard.current.spaceKey.wasPressedThisFrame;
+        if (Keyboard.current == null || pumpInputKey == Key.None)
+        {
+            return false;
+        }
+
+        return Keyboard.current[pumpInputKey].wasPressedThisFrame;
         #else
         return Input.GetKeyDown(pumpKey);
         #endif
     }
+
+    #if ENABLE_INPUT_SYSTEM
+    // pumpKey (KeyCode) -> Input System Key eslemesi. Harf/ok/Space tuslari
+    // isimleri ortustugu icin dogrudan cozulur.
+    private void ResolvePumpKey()
+    {
+        if (!System.Enum.TryParse(pumpKey.ToString(), out pumpInputKey))
+        {
+            pumpInputKey = Key.None;
+
+            Debug.LogWarning(
+                "PressurePumpController: '" + pumpKey +
+                "' Input System'de eslesmedi.",
+                this
+            );
+        }
+    }
+    #endif
 
     private void OnValidate()
     {
@@ -240,5 +269,9 @@ public class PressurePumpController : MonoBehaviour
         {
             greenZoneMax = greenZoneMin;
         }
+
+        #if ENABLE_INPUT_SYSTEM
+        ResolvePumpKey();
+        #endif
     }
 }
