@@ -26,6 +26,7 @@ public class ThrowGameController : MonoBehaviour
     [SerializeField]
     private ScoreController scoreController;
 
+    [Tooltip("Optional. If omitted, gameplay continues without instruction text.")]
     [SerializeField]
     private GameUIController gameUIController;
 
@@ -182,7 +183,7 @@ public class ThrowGameController : MonoBehaviour
         thrownBag.ReturnedToGround +=
         HandleBagReturnedToGround;
 
-        gameUIController.SetInstruction(
+        SetInstruction(
             "Bag in flight..."
         );
     }
@@ -221,7 +222,7 @@ public class ThrowGameController : MonoBehaviour
             deliveredBagCount
         );
 
-        gameUIController.SetInstruction(
+        SetInstruction(
             "Success! +" +
             earnedScore +
             " points."
@@ -291,7 +292,7 @@ public class ThrowGameController : MonoBehaviour
 
         GameSignals.Raise(GameSignals.BagMissed);
 
-        gameUIController.SetInstruction(
+        SetInstruction(
             "Missed! You can pick up the bag again."
         );
     }
@@ -334,7 +335,7 @@ public class ThrowGameController : MonoBehaviour
 
         GameSignals.Raise(GameSignals.GameOver);
 
-        gameUIController.SetInstruction(
+        SetInstruction(
             "Game over! Total score: " +
             scoreController.TotalScore +
             ". Highest streak: " +
@@ -346,5 +347,13 @@ public class ThrowGameController : MonoBehaviour
             scoreController.TotalScore,
             this
         );
+    }
+
+    private void SetInstruction(string message)
+    {
+        if (gameUIController != null)
+        {
+            gameUIController.SetInstruction(message);
+        }
     }
 }

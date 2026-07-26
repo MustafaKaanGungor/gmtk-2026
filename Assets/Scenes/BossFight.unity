@@ -2113,7 +2113,7 @@ MonoBehaviour:
   spawnInterval: 1.35
   meteorFallSpeed: 5
   startAutomatically: 1
-  startingWaveCount: 20
+  startingWaveCount: 3
   finalTriggerCount: 1
   finalTriggerDelay: 3
   countdownUI: {fileID: 257036185}
