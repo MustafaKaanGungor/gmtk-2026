@@ -182,9 +182,6 @@ public class ThrowGameController : MonoBehaviour
         thrownBag.ReturnedToGround +=
         HandleBagReturnedToGround;
 
-        gameUIController.SetInstruction(
-            "Bag in flight..."
-        );
     }
 
     private void HandleBagDelivered(
@@ -221,7 +218,7 @@ public class ThrowGameController : MonoBehaviour
             deliveredBagCount
         );
 
-        gameUIController.SetInstruction(
+        ShowInstruction(
             "Success! +" +
             earnedScore +
             " points."
@@ -234,6 +231,14 @@ public class ThrowGameController : MonoBehaviour
         if (deliveredBagCount >= totalBagCount)
         {
             FinishGame();
+        }
+    }
+
+    private void ShowInstruction(string message)
+    {
+        if (gameUIController != null)
+        {
+            gameUIController.SetInstruction(message);
         }
     }
 
@@ -291,7 +296,7 @@ public class ThrowGameController : MonoBehaviour
 
         GameSignals.Raise(GameSignals.BagMissed);
 
-        gameUIController.SetInstruction(
+        ShowInstruction(
             "Missed! You can pick up the bag again."
         );
     }
@@ -334,7 +339,7 @@ public class ThrowGameController : MonoBehaviour
 
         GameSignals.Raise(GameSignals.GameOver);
 
-        gameUIController.SetInstruction(
+        ShowInstruction(
             "Game over! Total score: " +
             scoreController.TotalScore +
             ". Highest streak: " +
