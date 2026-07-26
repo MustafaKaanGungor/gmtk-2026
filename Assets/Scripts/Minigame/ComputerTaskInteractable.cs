@@ -11,6 +11,7 @@ public class ComputerTaskInteractable : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private GameObject taskHighlight;
     [SerializeField] private GameObject interactionPrompt;
+    [SerializeField] private ComputerHighlightPulse highlightPulse;
 
     [Header("Interaction Settings")]
     [SerializeField] private bool clickRequiresPlayerInRange = true;
@@ -36,6 +37,21 @@ public class ComputerTaskInteractable : MonoBehaviour
             worldCamera = Camera.main;
         }
 
+        if (highlightPulse == null)
+        {
+            highlightPulse =
+                GetComponent<ComputerHighlightPulse>();
+        }
+
+        if (highlightPulse == null && taskHighlight != null)
+        {
+            highlightPulse =
+                taskHighlight.GetComponentInChildren<ComputerHighlightPulse>(
+                    true
+                );
+        }
+
+        RefreshHighlightState();
         RefreshVisuals();
     }
 
@@ -233,11 +249,14 @@ public class ComputerTaskInteractable : MonoBehaviour
         bool taskAvailable =
             !completed || !disableAfterCompletion;
 
+        bool minigameOpen =
+            minigame != null && minigame.IsOpen;
+
         if (taskHighlight != null)
         {
             taskHighlight.SetActive(
-                taskAvailable &&
-                (minigame == null || !minigame.IsOpen)
+                !minigameOpen &&
+                (taskAvailable || completed)
             );
         }
 
@@ -247,7 +266,7 @@ public class ComputerTaskInteractable : MonoBehaviour
                 taskAvailable &&
                 PlayerInRange &&
                 minigame != null &&
-                !minigame.IsOpen
+                !minigameOpen
             );
         }
     }
@@ -255,12 +274,22 @@ public class ComputerTaskInteractable : MonoBehaviour
     public void MarkCompleted()
     {
         completed = true;
+        RefreshHighlightState();
         RefreshVisuals();
     }
 
     public void ResetTask()
     {
         completed = false;
+        RefreshHighlightState();
         RefreshVisuals();
+    }
+
+    private void RefreshHighlightState()
+    {
+        if (highlightPulse != null)
+        {
+            highlightPulse.SetCompleted(completed);
+        }
     }
 }

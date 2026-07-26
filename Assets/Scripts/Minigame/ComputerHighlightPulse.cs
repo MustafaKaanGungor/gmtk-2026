@@ -17,7 +17,12 @@ public class ComputerHighlightPulse : MonoBehaviour
     [SerializeField] private float minimumAlphaMultiplier = 0.45f;
     [SerializeField] private float maximumAlphaMultiplier = 1f;
 
+    [Header("Completed Settings")]
+    [SerializeField] private Color completedGlowColor =
+        new Color(0.25f, 1f, 0.35f, 0.8f);
+
     private Vector3 originalLocalScale;
+    private bool completed;
 
     private void Awake()
     {
@@ -46,6 +51,12 @@ public class ComputerHighlightPulse : MonoBehaviour
 
         SyncSprite();
 
+        if (completed)
+        {
+            ApplyCompletedVisual();
+            return;
+        }
+
         float pulseValue =
             (Mathf.Sin(Time.unscaledTime * pulseSpeed) + 1f) * 0.5f;
 
@@ -68,6 +79,24 @@ public class ComputerHighlightPulse : MonoBehaviour
         currentColor.a *= alphaMultiplier;
 
         glowRenderer.color = currentColor;
+    }
+
+    public void SetCompleted(bool isCompleted)
+    {
+        completed = isCompleted;
+
+        if (completed && glowRenderer != null)
+        {
+            ApplyCompletedVisual();
+        }
+    }
+
+    private void ApplyCompletedVisual()
+    {
+        glowRenderer.transform.localScale =
+            originalLocalScale * maximumScale;
+
+        glowRenderer.color = completedGlowColor;
     }
 
     private void SyncSprite()
