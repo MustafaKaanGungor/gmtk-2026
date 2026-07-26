@@ -53,6 +53,9 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("State Bindings (state -> animasyon + ses)")]
     [SerializeField] private StateBinding[] stateBindings;
 
+    [Header("Missing State Fallback")]
+    [SerializeField] private string fallbackAnimatorStateName = "Idle";
+
     public AnimationState CurrentState { get; private set; }
     public bool IsPumping { get; private set; }
     public bool IsClimbing { get; private set; }
@@ -194,7 +197,7 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (animator != null)
         {
-            animator.Play(animStateName);
+            PlayAnimatorState(animStateName);
         }
 
         if (newBinding != null &&
@@ -202,6 +205,62 @@ public class PlayerAnimationController : MonoBehaviour
         {
             GameSignals.Raise(newBinding.enterSoundSignal);
         }
+    }
+
+    private void PlayAnimatorState(string requestedStateName)
+    {
+        if (animator.runtimeAnimatorController == null)
+        {
+            return;
+        }
+
+        if (TryPlayAnimatorState(requestedStateName))
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(fallbackAnimatorStateName) &&
+            requestedStateName != fallbackAnimatorStateName)
+        {
+            TryPlayAnimatorState(fallbackAnimatorStateName);
+        }
+    }
+
+    private bool TryPlayAnimatorState(string stateName)
+    {
+        if (string.IsNullOrWhiteSpace(stateName))
+        {
+            return false;
+        }
+
+        int shortNameHash = Animator.StringToHash(stateName);
+
+        for (int layerIndex = 0;
+             layerIndex < animator.layerCount;
+             layerIndex++)
+        {
+            if (animator.HasState(layerIndex, shortNameHash))
+            {
+                animator.Play(shortNameHash, layerIndex);
+                return true;
+            }
+
+            string fullStateName =
+                animator.GetLayerName(layerIndex) + "." + stateName;
+
+            int fullPathHash =
+                Animator.StringToHash(fullStateName);
+
+            if (!animator.HasState(layerIndex, fullPathHash))
+            {
+                continue;
+            }
+
+            animator.Play(fullPathHash, layerIndex);
+            return true;
+        }
+
+        return false;
     }
 
     private StateBinding GetBinding(AnimationState state)
